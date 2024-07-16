@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            margin: 30px;
+            line-height: 100px;
+            text-transform: uppercase;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+        }
+
+        .container {
+            background-color: #475c5c;
+            width: 1140px;
+            margin: 0 auto;
+            height: 100px;
+        }
+
+        .active {
+            border: 1px solid white;
+        }
+
+        a:hover {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ul>
+            <li><a class="active" href="#">MENU1</a></li>
+            <li><a href="#" id="menu1">abcdef</a></li>
+            <li><a href="#" id="menu2">newMenu</a></li>
+            <li><a href="#" id="menu3">SignIn</a></li>
+            <li><a href="#" id="menu4">SignUp</a></li>
+        </ul>
+        <div id="div1">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente reprehenderit quis incidunt ad, sit
+                alias culpa laborum officiis suscipit quae, vel beatae, in recusandae quam enim blanditiis at placeat
+                ipsam.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente reprehenderit quis incidunt ad, sit
+                alias culpa laborum officiis suscipit quae, vel beatae, in recusandae quam enim blanditiis at placeat
+                ipsam.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente reprehenderit quis incidunt ad, sit
+                alias culpa laborum officiis suscipit quae, vel beatae, in recusandae quam enim blanditiis at placeat
+                ipsam.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente reprehenderit quis incidunt ad, sit
+                alias culpa laborum officiis suscipit quae, vel beatae, in recusandae quam enim blanditiis at placeat
+                ipsam.</p>
+        </div>
+        <div id="div2">
+            <p>현재 대한민국의 국가(國歌)로 통용되는 애국가는 1936년 안익태(安益泰, 1906~1965)가 작곡한 것으로, 관습적으로 ‘국가’로 불리다가 1948년 8월 15일 정부수립 후 대한민국의
+                국가로 자리를 잡았다. 현재의 애국가 이전 최초의 애국가는 시기적으로 더 거슬러 올라가 대한제국 시기에 탄생하였다. 1894년 갑오경장과 1896년 독립협회 결성 이후 민간에서는 애국심을
+                고취하기 위한 많은 애국가들이 작사되었는데 약 10여 종에 이르렀으며, 어떤 곡조로 불렸는지는 모르지만 그 가사들이 독립신문에 게재되기 시작했다. 그러던 중 대한제국 애국가가 공포되었는데
+                국가에서 정식으로 애국가를 제정한 것은 최초의 일이었다.
+                대한제국이 선포된 이후 고종은 국가상징물로 애국가의 필요성을 느끼고 1900년 12월에 군악대 설치를 법령으로 공포하였으며, 독일음악가 프란츠 폰 에케르트(Franz von Eckert,
+                1852~1916)를 초빙하기에 이른다. 에케르트는 독일 해군군악대장으로 재직하던 중 1879년 일본에 초빙되어 일본해군군무국 등에서 근무하며 양악을 보급한 인물이다. 23년간의
+                일본생활을 마치고 1900년 3월 독일로 귀국하였다가 주한독일공사관의 추천으로 1901년 2월 7일 50인조 정규 군악대의 각종 악기를 가지고 내한하였다. 고종의 명을 받아 이듬해
+                1902년 7월 1일 한국의 전통적 음계를 바탕으로 한 대한제국 애국가를 완성하였고 이는 같은 해 8월 15일 대한제국 애국가로 공포되었다. 에케르트는 애국가 작곡에 대한 공로로 태극
+                3등급 훈장을 받았다.</p>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('#menu1').mouseenter(function () {
+            console.log("일로오나");
+            $('#div1').fadeIn();
+        });
+        $('#menu1').mouseleave(function () { $('#div1').fadeOut(); });
+        $('#menu2').click(function () { $('#div2').fadeToggle(); });
+    });
+</script>
