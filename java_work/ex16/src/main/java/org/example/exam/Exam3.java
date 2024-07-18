@@ -15,11 +15,15 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 class DoA{
-    public int[] arrange(int[][] arr){
-
+    public int[] 가로(int[][] arr){
+        int[][] arr2 = new int[][];
 
     }
 }
 
 public class Exam3 {
+    public static void main(String[] args) {
+
+
+    }
 }
