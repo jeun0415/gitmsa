@@ -16,14 +16,19 @@ import java.util.Arrays;
 물론 배열의 가로와 세로길이에 상관없이 위와 같이 동작하도록 메소드를 정의해야 한다.
  */
 @AllArgsConstructor
-class DoA{
+class DoB{
     public static void width(int[][] arr){
-
+        int num2 = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (num2 < arr[i].length){
+                num2 = arr[i].length;
+            }
+        }
         int num1 = arr.length;
-        int num2 = arr[0].length;
         int[][] arr2 = new int[num1][num2];
+
         for (int i = 0; i < num2; i++) {
-                arr2[0][i] = arr[num1-1][i];
+            arr2[0][i] = arr[num1-1][i];
         }
         for (int i = 0; i < (num1-1); i++) {
             for (int j = 0; j < num2; j++) {
@@ -37,9 +42,9 @@ class DoA{
     }
 }
 
-public class Exam3 {
+public class Exam3_1 {
     public static void main(String[] args) {
-        int[][] arr = {{1,2,3,10,20},{4,5,6,7,8},{7,8,9,50,60},{10,20,30,100,99}};
-        DoA.width(arr);
+        int[][] arr = {{1,2,3},{4,5,6,7,8,9},{7,8},{10,20,30}};
+        DoB.width(arr);
     }
 }
