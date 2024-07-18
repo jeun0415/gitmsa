@@ -18,7 +18,7 @@ public static int maxValue(int[] arr){}
 @ToString
 
 class Value{
-    private int[] arr;
+    private int[] arr2;
 
     public static int minValue(int[] arr){
         for (int i = 0; i < arr.length; i++) {
@@ -31,7 +31,7 @@ class Value{
     }
 
     public static int maxValue(int[] arr){
-        for(int n : arr){
+        for(arr2 : arr){
             
         }
     }
