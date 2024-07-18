@@ -15,15 +15,16 @@ public static int maxValue(int[] arr){}
 새로운 for(enhanced for문)을 사용하기로 하자
  */
 @AllArgsConstructor
-@ToString
 
 class Value{
-    private int[] arr2;
+    private int[] arr;
 
     public static int minValue(int[] arr){
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length-1; i++) {
             if(arr[i] < arr[i+1]){
-                arr[0] = arr[i];
+                if (arr[0] > arr[i]){
+                    arr[0] = arr[i];
+                }
             }
         }
         int num1 = arr[0];
@@ -31,20 +32,26 @@ class Value{
     }
 
     public static int maxValue(int[] arr){
-        for(arr2 : arr){
-            
+        int[] a = new int[1];
+        for(int n : arr){
+            if (a[0] < n){
+                a[0] = n;
+            }
         }
+        int num2 = a[0];
+        return num2;
     }
 
 }
-
-
 
 public class Exam1 {
 
     public static void main(String[] args) {
 
-        int[] arr = {11,8,25,39,62};
+        int[] arr = {11,8,25,39,62,40,1,2,3,4,9,80,100};
+
+        System.out.println(Value.minValue(arr));
+        System.out.println(Value.maxValue(arr));
 
     }
 }
