@@ -1,5 +1,3 @@
-
-
 const aa = document.getElementById("btn-min");
 const bb = document.getElementById("btn-max");
 const printDiv = document.getElementById("print-div");
@@ -10,21 +8,28 @@ const n3 = document.getElementById("num3");
 const n4 = document.getElementById("num4");
 const n5 = document.getElementById("num5");
 
-function min(){
-  console.log(n1.value);
-  const arr = [n1.value,n2.value,n3.value,n4.value,n5.value];
-  console.log(arr);
-for(let index = 0; index < arr.length; index++){
-  const element = arr[index];
-  console.log(element);
+function min() {
+  const arr = [n1.value, n2.value, n3.value, n4.value, n5.value];
+  let min = arr[0];
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index];
+    if(Number(min) > Number(element))
+      min = element;
+  }
+  printDiv.textContent = "최솟값 = " + min;
 }
-}
-function max(){
-  alert('max함수 호출');
+function max() {
+  const arr = [n1.value, n2.value, n3.value, n4.value, n5.value];
+  let max = arr[0];
+  for (const key of arr) {
+    if(Number(max) < Number(key))
+      max = key;
+  }
+  printDiv.textContent = "최댓값 = " + max;
 }
 
-aa.addEventListener('click',min)
-bb.addEventListener('click',max)
+aa.addEventListener('click', min);
+bb.addEventListener('click', max);
 
 printDiv.textContent = "안녕하세요 내용을 넣은 거에요";
 
@@ -38,4 +43,3 @@ console.log(dd);
 for (let i=0; i<10; i++){
   console.log(i);
 }*/
-
