@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input{ display: none;}
+    label{ cursor: pointer; padding: 0px 20px;}
+    label::after{
+      content: '*****';
+      border-right: 1px solid black;
+    }
+    .my-div{ display: none; }
+    #ck1:checked ~ #lab1{ background-color: #ccc;}
+    #ck2:checked ~ #lab2{ background-color: #ccc;}
+    #ck3:checked ~ #lab3{ background-color: #ccc;}
+
+    #ck1:checked ~ #div-1{ display: block;}
+    #ck2:checked ~ #div-2{ display: block;}
+    #ck3:checked ~ #div-3{ display: block;}
+    [type=radio]{
+
+    }
+    [for=ck1]{
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>ㅎㅎㅎ</h1>
+    <input type="radio" name="gg" id="ck1" checked>
+    <input type="radio" name="gg" id="ck2">
+    <input type="radio" name="gg" id="ck3">
+    <label for="ck1" id="lab1">ck1</label>
+    <label for="ck2" id="lab2">ck2</label>
+    <label for="ck3" id="lab3">ck3</label>
+    <div class="my-div" id="div-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod totam dolorum, repellat aliquam nostrum dicta delectus, accusamus repudiandae quos obcaecati expedita eum molestiae tempora ab cumque nemo iusto, perferendis voluptatibus?</div>
+    <div class="my-div" id="div-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod eum aut facilis. Vero ea dignissimos perferendis, architecto eaque, earum debitis consequuntur aspernatur quisquam atque doloribus ut in repellendus, odit quibusdam.</div>
+    <div class="my-div" id="div-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti vel voluptatem animi hic numquam provident ipsum. Voluptate reiciendis vitae deleniti, nisi, sit mollitia dolore itaque animi quos ipsam asperiores dolorum.</div>
+  </div>
+</body>
+</html>
