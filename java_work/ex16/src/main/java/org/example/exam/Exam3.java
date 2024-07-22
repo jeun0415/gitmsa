@@ -2,6 +2,8 @@ package org.example.exam;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Arrays;
+
 /*
 3. 다음 형태로 표현된 2차원 배열이 존재한다고 가정해보자
 1   2    3   //1행
@@ -15,15 +17,36 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 class DoA{
-    public int[] 가로(int[][] arr){
-        int[][] arr2 = new int[][];
+
+    public static void width(int[][] arr){
+        int num2 = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (num2 < arr[i].length){
+                num2 = arr[i].length;
+            }
+        }
+        int num1 = arr.length;
+        int[][] arr2 = new int[num1][num2];
+
+        for (int i = 0; i < num2; i++) {
+            arr2[0][i] = arr[num1-1][i];
+        }
+        for (int i = 0; i < (num1-1); i++) {
+            for (int j = 0; j < num2; j++) {
+                arr2[i+1][j] = arr[i][j];
+            }
+        }
+        for (int i = 0; i < arr2.length; i++) {
+            System.out.println(Arrays.toString(arr2[i]));
+        }
+
 
     }
 }
 
 public class Exam3 {
     public static void main(String[] args) {
-
-
+        int[][] arr = {{1,2,3,4,5},{2,2,2,2,2},{5,6,7,8,9},{8,9,10,11,12}};
+        DoA.width(arr);
     }
 }
