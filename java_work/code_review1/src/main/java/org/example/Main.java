@@ -8,10 +8,14 @@ public class Main {
 
         Scanner scan1 = new Scanner(System.in);
 
-        System.out.println("한번 답하면 끝날 때까지 수정할 수 없습니다.");
+        System.out.println("!!!한번 답하면 끝날 때까지 수정할 수 없습니다!!!");
         System.out.println("성별을 고르시오");
         System.out.println("1. 남자   2. 여자");
         int gender = scan1.nextInt();
+        System.out.println();
+
+        System.out.println("만나이를 숫자만 입력하시오");
+        int age = scan1.nextInt();
         System.out.println();
 
         System.out.println("키를 cm 단위로 숫자만 입력하시오");
@@ -27,12 +31,13 @@ public class Main {
             System.out.println("구하고 싶은 것을 선택하여 숫자를 입력하시오");
             System.out.println("1  BMI(체질량지수)");
             System.out.println("2  표준체중");
-            System.out.println("3  하루 권장 칼로리");
+            System.out.println("3  표준체중 기준 하루 권장 칼로리");
+            System.out.println("4  내 체중 기준 하루 권장 칼로리");
             System.out.println();
 
             Scanner scan2 = new Scanner(System.in);
             int num = scan2.nextInt();
-            Health health = new Health(gender, height, weight);
+            Health health = new Health(gender, age, height, weight);
 
             if (num == 1) {
                 health.bmi();
@@ -42,9 +47,12 @@ public class Main {
                 System.out.println("표준체중 : " + result + "kg");
 
             } else if (num == 3) {
-                health.kcal();
+                health.akcal();
 
-            } else {
+            } else if (num == 4) {
+                health.mykcal();
+
+            }else {
                 System.out.println();
                 System.out.println("!!!숫자를 보기 안에서 골라주세요!!!");
                 System.out.println();
