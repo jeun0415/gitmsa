@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <header></header>
     <div id="container">
         <form>
             <fieldset>
@@ -32,11 +33,11 @@
                     <legend>요청사항</legend>
                     <ul>
                         <li>
-                            <label for="to-shop">뛰뛰빵빵에게(0/50자)</label>
+                            <label for="to-shop">뛰뛰빵빵에게 (최대 50자)</label>
                             <textarea name="" id="to-shop" cols="100" rows="4"></textarea>
                         </li>
                         <li>
-                            <label for="to-rider">라이더님께(0/50자)</label>
+                            <label for="to-rider">라이더님께 (최대 50자)</label>
                             <textarea name="" id="to-rider" cols="100" rows="4"></textarea>
                         </li>
                     </ul>
@@ -45,7 +46,17 @@
                     <legend>주문고객 정보</legend>
                     <ul>
                         <li><label for="">주문자 이름<input type="text" required></label></li>
-                        <li><label for="">핸드폰 번호<input type="tel" required></label></li>
+                            <li><label for="">핸드폰 번호</label>
+                            <select name="" id="">
+                                <option value="tel_1" selected>010</option>
+                                <option value="tel_1">011</option>
+                                <option value="tel_1">016</option>
+                                <option value="tel_1">017</option>
+                                <option value="tel_1">018</option>
+                                <option value="tel_1">019</option>
+                            </select></li>
+                            <li><label for="">-<input type="tel" size="1" maxlength="4" required></label></li>
+                            <li><label for="">-<input type="tel" size="1" maxlength="4" required></label></li>
                         <li><label for="">이메일<input type="email" required></label></li>
                         <li><label for="">비밀번호<input type="password" required></label></li>
                         <li><label for="">비밀번호 확인<input type="password" required></label></li>
@@ -65,7 +76,7 @@
                     <input type="submit" value="주문" id="lb1">
                     <input type="reset" value="취소" id="lb2">
                 </div>
-                
+
             </div>
         </form>
     </div>
