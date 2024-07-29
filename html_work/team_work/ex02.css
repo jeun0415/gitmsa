@@ -29,6 +29,22 @@
           line-height: 40px;
         }
 
+        .payment{
+          text-align: center;
+        }
+
+        a{
+          text-decoration: none;
+          color: black;
+          background-color: #ccc;
+          display: inline-block;
+        }
+
+        a:hover{
+          background-color: black;
+          color: white;
+        }
+        
         #ck1{
           cursor: pointer;
         }
@@ -48,7 +64,7 @@
         .last-btn {
           display: flex;
           justify-content: center;
-          margin: 0 0 100px 0;
+          margin: 100px 0 100px 0;
         }
 
         .last-btn>input {
