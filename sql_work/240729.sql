@@ -67,3 +67,33 @@ select publisher, bookname
 from Book
 where bookname like '%축구%';
 
+select name, phone
+from customer
+where name like '김연아';
+
+select bookname, publisher
+from book
+where price >= 10000;
+
+select bookname, publisher
+from book
+where price >= 10000 and price <= 20000;
+
+select distinct publisher
+from book;
+
+select name
+from customer
+where phone is null;
+
+select *
+from book
+where (publisher = '굿스포츠') and (price between 10000 and 19999);
+
+select *
+from book
+where publisher in ('굿스포츠', '대한미디어');
+
+select *
+from book
+where publisher not in ('굿스포츠', '대한미디어');
