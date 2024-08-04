@@ -11,27 +11,26 @@
           margin: auto;
         }
 
-        .c-fd, .c-fd2 {
-          margin: 120px;
-          padding: 10px;
+        .c-head {
           display: flex;
-          flex-direction: column;
           align-items: center;
+          margin-bottom: 20px;
+          margin-left: 100px;
+          margin-bottom: 50px;
         }
 
-        .c-fd2{
-          padding: 26px;
+        .c-head div {
+          margin: 0;
+          padding: 0;
         }
 
-        .c-lgd {
-          border: 4px solid hsl(39, 94%, 65%);
-          border-radius: 10px;
-          margin: 10px;
-          padding: 2px 10px;
-          text-align: center;
+        .c-sec {
+          margin-top: 100px;
+          margin-bottom: 150px;
         }
 
-        .c-payment {
+        .c-payment,
+        .c-first {
           text-align: center;
         }
 
@@ -48,68 +47,95 @@
           color: white;
         }
 
-        .c-group1,
-        .c-group2 {
-          margin: 10px;
+        .c-way{
+          margin: 0 70px 0 70px;
+        }
+
+        .c-line1{
+          border: 2px solid #d1cfca;
+          border-radius: 10px;
+          width: 500px;
           display: inline;
-          justify-content: center;
-          align-items: center;
-          gap: 20px;
+          padding: 30px;
         }
 
-        #c-ck1,
-        #c-ck2 {
+        [type="radio"],
+        span {
+          vertical-align: middle;
+        }
+
+        [type="radio"] {
+          vertical-align: middle;
+          appearance: none;
+          border: max(2px, 0.1em) solid gray;
+          border-radius: 50%;
+          width: 2em;
+          height: 2em;
+        }
+
+        [type="radio"]:checked {
+          border: 0.5em solid tomato;
+        }
+
+        [type="radio"]:focus-visible {
+          outline: max(2px, 0.1em) dotted tomato;
+          outline-offset: max(2px, 0.1em);
+        }
+
+        [type="radio"]:hover {
+          box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
           cursor: pointer;
-          transform: scale(1.5);
         }
-
-        #c-lab1,
-        #c-lab2 {
+        
+        [type="radio"]:hover + span {
           cursor: pointer;
-          font-size: 1.2rem;
-          margin-right: 10px;
         }
 
-        .c-info{
-          list-style: none;
-          padding: 8px;
-        }
-
-        .c-info label {
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        .c-li, .c-li1, .c-li2 {
-          list-style: none;
+        .c-info2, .c-info3{
           display: inline;
+        }
+
+        .c-li,
+        .c-li1,
+        .c-li2 {
+          list-style: none;
+          display: inline-block;
           padding: 0;
         }
 
-        .c-tt1{
+        .c-tt1 {
           font-size: 20px;
           font-weight: 500;
           text-align: center;
-        }
-
-        .c-tt1, .c-tt2 {
           resize: none;
           border-radius: 10px;
         }
 
-        .c-pay1, .c-pay2, .c-pay3, .c-pay4, .c-pay5, .c-pay6, .c-pay7{
+        .c-tt2 {
+          resize: none;
+          border-radius: 10px;
+        }
+
+        .c-pay1,
+        .c-pay2,
+        .c-pay3,
+        .c-pay4,
+        .c-pay5,
+        .c-pay6,
+        .c-pay7 {
           border: 1px solid #ccc;
           margin: 40px;
           padding: 20px;
         }
 
-        #c-receipt{
+        #c-receipt {
           border: 1px solid #ccc;
           margin: 40px;
           padding: 20px;
         }
 
-        .c-prt1, .c-prt2{
+        .c-prt1,
+        .c-prt2 {
           cursor: pointer;
         }
 
