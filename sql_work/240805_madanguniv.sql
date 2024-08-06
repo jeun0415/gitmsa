@@ -5,30 +5,28 @@ use madanguniv;
 create table professor(
 p_ssn integer auto_increment primary key,
 p_name varchar(30) not null,
-p_age integer,
-p_rank char(3) not null,
-speciality varchar(100) not null
+p_age integer null,
+p_rank char(3) null,
+p_speciality varchar(100) null
 );
 
 create table department(
 dno integer auto_increment primary key,
 dname varchar(30) not null,
-office char(2) not null,
-p_ssn integer not null, -- run 학과장 --
-foreign key(p_ssn) references professor(p_ssn)
+office char(2) null,
+run integer not null, -- run 학과장 --
+foreign key(run) references professor(p_ssn)
 );
 
-create table graduate(
+create table graduate(		-- X
 g_ssn integer auto_increment primary key,
 g_name varchar(30) not null,
-g_age integer,
-deg_prog char(1),
-dno integer, -- major 전공학과 --
-advisor integer null, -- 선임 대학원생 --
-workprog integer not null, -- work-prog 수행하는 프로젝트 --
+g_age integer null,
+g_deg_prog char(1) not null,
+g_major integer not null, -- major 전공학과 --
+g_advisor integer null, -- 선임 대학원생 --
 foreign key(advisor) references graduate(g_ssn),
-foreign key(dno) references department(dno),
-foreign key(workprog) references project(pid)
+foreign key(major) references department(dno)
 );
 
 create table project(
@@ -37,9 +35,10 @@ sponsor varchar(50) null,
 start_date date not null,
 end_date date not null,
 budget varchar(100) not null
+
 );
 
-create table workdept(
+create table work_dept(
 dno integer not null,
 p_ssn integer not null,
 pct_time integer not null,
@@ -48,7 +47,7 @@ foreign key(dno) references department(dno),
 foreign key(p_ssn) references professor(p_ssn)
 );
 
-create table workin(
+create table work_in(
 pid integer not null,
 p_ssn integer not null,
 workrole char(1) not null,
@@ -57,7 +56,7 @@ foreign key(pid) references project(pid),
 foreign key(p_ssn) references professor(p_ssn)
 );
 
-create table workprog(
+create table work_prog(		-- X
 pid integer not null,
 g_ssn integer not null,
 primary key(pid, g_ssn),
