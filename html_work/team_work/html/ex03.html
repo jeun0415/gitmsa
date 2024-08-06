@@ -64,10 +64,10 @@
                     <h3 class="c-head">
                         <div class="t-square-box"></div>&nbsp;&nbsp;주문내역
                     </h3>
-                    <div class="t-order-box-main">
+                    <!--여기서부터 -->
+                    <div style="width: 80%;" class="t-order-box-main">
                         <div>
                             <ul class="t-category-box">
-                                <input type="checkbox" onclick="cartSelectAll(this)">
                                 <li><b>상품[옵션]</b></li>
                                 <li><b>주문금액</b></li>
                                 <li><b>수량</b></li>
@@ -77,74 +77,69 @@
                         </div>
                         <div>
                             <ul class="t-order-line">
-                                <input type="checkbox" class="my-checkbox">
                                 <li>멜론빵</li>
                                 <li>2500원</li>
-                                <li id="t-num-li">
-                                    <button class="t-num-button" type="button"
-                                        onclick="decrement('num-jsc1')">-</button>
-                                    <input type="text" class="t-num-num" id="num-jsc1" value="1" readonly>
-                                    <button class="t-num-button" type="button"
-                                        onclick="increment('num-jsc1')">+</button>
-                                </li>
+                                <div class="t-set">
+                                    <li id="t-num-li">
+                                        <button class="t-num-button" type="button"
+                                            onclick="decrement('num-jsc1')">-</button>
+                                        <input type="text" class="t-num-num" id="num-jsc1" value="1" readonly>
+                                        <button class="t-num-button" type="button"
+                                            onclick="increment('num-jsc1')">+</button>
+                                    </li>
+                                </div>
                                 <li>2500원</li>
                                 <li>5000원</li>
                             </ul>
-                            <ul class="t-order-line">
-                                <input type="checkbox" class="my-checkbox">
+                            <ul class="t-order-line1">
                                 <li>소금빵</li>
                                 <li>3500원</li>
-                                <li id="t-num-li">
-                                    <button class="t-num-button" type="button"
-                                        onclick="decrement('num-jsc2')">-</button>
-                                    <input type="text" class="t-num-num" id="num-jsc2" value="1" readonly>
-                                    <button class="t-num-button" type="button"
-                                        onclick="increment('num-jsc2')">+</button>
-                                </li>
+                                <div class="t-set">
+                                    <li id="t-num-li">
+                                        <button class="t-num-button" type="button"
+                                            onclick="decrement('num-jsc2')">-</button>
+                                        <input type="text" class="t-num-num" id="num-jsc2" value="1" readonly>
+                                        <button class="t-num-button" type="button"
+                                            onclick="increment('num-jsc2')">+</button>
+                                    </li>
+                                </div>
                                 <li>3500원</li>
                                 <li>5000원</li>
                             </ul>
-                            <ul class="t-order-line">
-                                <input type="checkbox" class="my-checkbox">
+                            <ul class="t-order-line2">
                                 <li>블루베리 <br>케이크</li>
                                 <li>35000원</li>
-                                <li id="t-num-li">
-                                    <button class="t-num-button" type="button"
-                                        onclick="decrement('num-jsc3')">-</button>
-                                    <input type="text" class="t-num-num" id="num-jsc3" value="1" readonly>
-                                    <button class="t-num-button" type="button"
-                                        onclick="increment('num-jsc3')">+</button>
-                                </li>
+                                <div class="t-set">
+                                    <li id="t-num-li">
+                                        <button class="t-num-button" type="button"
+                                            onclick="decrement('num-jsc3')">-</button>
+                                        <input type="text" class="t-num-num" id="num-jsc3" value="1" readonly>
+                                        <button class="t-num-button" type="button"
+                                            onclick="increment('num-jsc3')">+</button>
+                                    </li>
+                                </div>
                                 <li>35000원</li>
                                 <li>5000원</li>
                             </ul>
                         </div>
-                        <div>
-                            <ul class="t-order-box">
-                                <li> 주문 합계 : 41,000원</li>
-                                <h1>+</h1>
-                                <li> 배송비 : 5,000원</li>
-                                <h1>=</h1>
-                                <li>총 주문금액 : </li>
-                                <h1>46,000원</h1>
-                            </ul>
-                        </div>
-                    </div>
-                    <button class="c-bn">장바구니로 돌아가기</button>
+                        <!--여기까지 -->
+                    </div><br>
+                    <a href="../html/ShoppingCartPage.html" class="c-bn1">장바구니로 돌아가기</a>
                 </div>
                 <div class="c-sec">
                     <h3 class="c-head">
                         <div class="t-square-box"></div>&nbsp;&nbsp;배달주소
                     </h3>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control mb-2" id="zipp_code_id" name="zipp_code"
-                            placeholder="우편번호" disabled>
-                        <input type="button" id="zipp_btn" class="c-bn" onclick="execDaumPostcode()"
-                            value="우편번호 찾기"><br>
+                        <div class="c-addnum">
+                            <input type="text" class="form-control mb-2" id="zipp_code_id" name="zipp_code"
+                                placeholder="우편번호" disabled>
+                            <a id="zipp_btn" class="c-bn2" onclick="execDaumPostcode()">우편번호 찾기</a><br>
+                        </div>
                         <input type="text" class="c-input" name="user_add1" id="UserAdd1" maxlength="40"
-                            placeholder="기본 주소" required><br>
+                            placeholder="&nbsp;&nbsp;기본 주소" required><br>
                         <input type="text" class="c-input" name="user_add2" id="UserAdd2" maxlength="40"
-                            placeholder="상세 주소">
+                            placeholder="&nbsp;&nbsp;상세 주소">
                     </div><br>
                     <span>주소를 정확히 입력해주세요😊<br></span>
                 </div>
