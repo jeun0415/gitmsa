@@ -12,6 +12,9 @@
 /* user : hr, database : hr */
 /* 사용자 삭제 drop user hr@localhost; */
 create user hr@localhost identified by 'hr';
+
+select * from mysql.user;
+
 create database hr;
 grant all privileges on hr.* to hr@localhost with grant option;
 commit;
