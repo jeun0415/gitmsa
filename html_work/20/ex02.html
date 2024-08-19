@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,200px);
+        }
+        .items{
+            padding: 10px;
+        }
+        .box1{
+            background-color: greenyellow;
+            grid-column: 1/4;
+        }
+        .box2{
+            grid-row: 2/4;
+            background-color: skyblue;
+        }
+        .box3{
+            background-color: pink;
+            grid-column: 2/4;
+            grid-row-start: 2;
+        }
+        .box4{
+            grid-column-start: 3;
+            grid-row-start: 3;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="items box1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items box2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items box3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items box4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items box5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+    </div>
+</body>
+</html>

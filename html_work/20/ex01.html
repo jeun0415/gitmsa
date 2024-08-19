@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(200px,auto));
+            grid-template-rows: minmax(100px,auto);
+            grid-gap: 20px;
+        }
+        .items{
+            padding: 10px;
+            background-color: #eee;
+        }
+        .items:nth-child(even){
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="items">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+        <div class="items">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo obcaecati at, tempora earum laborum nesciunt alias blanditiis. Quia velit iure, similique delectus eveniet dolores corrupti, iusto provident, a alias debitis?</div>
+    </div>
+</body>
+</html>
