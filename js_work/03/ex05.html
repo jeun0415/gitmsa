@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="1">1단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="2">2단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="3">3단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="4">4단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="5">5단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="6">6단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="7">7단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="8">8단</button>
+  <button class="num" class="border border-gray-600 hover:bg-blue-400" data-value="9">9단</button>
+  <div id="print"></div>
+  <script>
+    var num = document.getElementsByClassName('num');
+    var print = document.getElementById('print');
+    const counts = [1,2,3,4,5,6,7,8,9];
+
+    console.log(num);
+
+    function handleMethod(event) {
+        const value = this.getAttribute('data-value');
+        let tmp = ``;
+        counts.forEach(element => {
+          tmp += `<div>` + (value+' * '+element+' = '+value*element) + `</div>`;
+        });
+        print.innerHTML = tmp;
+    }
+
+    for(let i = 0; i < num.length; i++) {
+      num[i].addEventListener("click", handleMethod);
+    }
+    
+    // num1.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (num1.value+' * '+element+' = '+1*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num2.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (2+' * '+element+' = '+2*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num3.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (3+' * '+element+' = '+3*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num4.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (4+' * '+element+' = '+4*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num5.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (5+' * '+element+' = '+5*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num6.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (6+' * '+element+' = '+6*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num7.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (7+' * '+element+' = '+7*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num8.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (8+' * '+element+' = '+8*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+
+    // num9.onclick = function(){
+    //   let tmp = ``;
+    //   counts.forEach(element => {
+    //     tmp += `<div>` + (9+' * '+element+' = '+9*element) + `</div>`;
+    //   });
+    //   print.innerHTML = tmp;
+    // };
+  </script>
+</body>
+</html>
