@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+      * {
+        font-family: "Poor Story", system-ui;
+        font-weight: 600;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex flex-col bg-green-200 p-5 space-y-2">
+      <label for="">총 몇명?</label>
+      <input type="text" name="" id="total" class="border border-slate-400 ring-1 focus:outline-none pl-2" placeholder="총 몇명인지 입력하세요"/>
+      <label for="">한줄에 몇명?</label>
+      <input
+        type="text"
+        name=""
+        id="colcount"
+        class="border border-slate-400 ring-1 focus:outline-none pl-2"
+      />
+      <div class="flex justify-center">
+        <button id="submit" class="px-5 py-1 bg-green-700 hover:bg-green-900 text-white">확인</button>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <h1>좌석</h1>
+      <div id="print"></div>
+    </div>
+
+    <script>
+      const total = document.getElementById('total');
+      const colcount = document.getElementById('colcount');
+      const print = document.getElementById('print');
+
+      const start = "<table class='border border-gray-200'>";
+      const end = '</table>';
+
+      document.getElementById('submit').onclick = ()=>{
+        if(total.value > 100){
+          alert('총 인원수는 100보다 작아야 합니다.');
+        }
+        if(colcount.value > 10){
+          alert('한 줄에 10명보다 작아야 합니다.');
+        }
+        console.log(`total.value = ${total.value} colcount.value = ${colcount.value}`);
+        // console.log('test'+total.value+colcount.value);
+        const arr = ["고길동","고희동","최포미"];
+
+        const lineNum = total.value/colcount.value;
+        let 행 = "";
+        let num = 1;
+        for(let i = 0; i < lineNum; i++){
+          행 = 행+'<tr>';
+            for(let j = 0; j < colcount.value; j++){
+              행 = 행+`<td class="border border-gray-300 px-3">좌석${num}</td>`;
+              if(num == Number(total.value))
+                break;
+              num++;
+          }
+          행 = 행+'</tr>';
+        }
+        print.innerHTML=`${start}${행}${end}`;
+      }
+
+      // 0~20명 랜덤한 숫자
+      // 중복X
+      // 배열인덱스
+    </script>
+  </body>
+</html>
