@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+      * {
+        font-family: "Jua", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col items-center justify-center bg-gray-100">
+    <button
+      id="btn"
+      class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-3 px-10 rounded-full shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-xl m-3"
+    >
+      확인
+    </button>
+    <div id="print" class="flex text-2xl"></div>
+    <script>
+      const btn = document.getElementById("btn");
+      const print = document.getElementById("print");
+      const arr = [
+        "고길동",
+        "최포미",
+        "임예서",
+        "임하성",
+        "이길동",
+        "최길동",
+        "박점순",
+      ];
+
+      btn.onclick = () => {
+        print.innerHTML = "";
+        const indexArr = [];
+
+        let temp = 0;
+        for (let i = 0; i < arr.length; i++) {
+          do {
+            temp = parseInt(Math.random() * 7);
+          } while (indexArr.indexOf(temp) > -1);
+          indexArr.push(parseInt(temp));
+        }
+        for (let i = 0; i < arr.length; i++) {
+          print.innerHTML += `<div class="font-bold text-gray-800 border border-gray-300 p-3">
+          ${arr[indexArr[i]]}
+        </div>
+        `;
+        }
+      };
+    </script>
+  </body>
+</html>
