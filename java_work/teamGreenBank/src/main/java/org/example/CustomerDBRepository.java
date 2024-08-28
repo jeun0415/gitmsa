@@ -152,7 +152,7 @@ public class CustomerDBRepository {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
                     "root", "1234");
-            pstmt = conn.prepareStatement("select u_name, h_timestamp, h_calc, h_balance from history h inner join users u on (h.u_idx == u.u_idx) where a_number = ? order by h_timestamp desc limit = 5");
+            pstmt = conn.prepareStatement("select u_name, h_timestamp, h_calc, h_balance from history h inner join users u on (h.u_idx == u.u_idx) where a_number = ? order by h_timestamp desc limit 5");
             pstmt.setInt(1, a_number);
 
             rs = pstmt.executeQuery();
