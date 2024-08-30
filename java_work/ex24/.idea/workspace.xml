@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a503176-dc0a-4ab8-bb85-f839f58744cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ex29/src/main/java/org/example/Ex06.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex29/src/main/java/org/example/Ex06.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../teamGreenBank/src/main/java/org/example/CustomerDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../teamGreenBank/src/main/java/org/example/CustomerDBRepository.java" afterDir="false" />
-    </list>
+    <list default="true" id="5a503176-dc0a-4ab8-bb85-f839f58744cc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
