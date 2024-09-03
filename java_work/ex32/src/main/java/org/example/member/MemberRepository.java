@@ -1,4 +1,4 @@
-package org.example;
+package org.example.member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -71,6 +71,37 @@ public class MemberRepository {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    // 사용자 존재 유무 확인
+    public Member findByIdx(int idx){
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://192.168.0.23:3306/aaa","root",
+                "1234"
+        )) {
+
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "select * from member where idx = ?"
+            );
+            pstmt.setInt(1,idx);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()){
+                // 사용자 있음
+                return Member.builder()
+                        .idx(rs.getInt("idx"))
+                        .name(rs.getString("name"))
+                        .email(rs.getString("email"))
+                        .build();
+            }
+            else {
+                // 사용자 없음
+                return null;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
