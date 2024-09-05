@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a503176-dc0a-4ab8-bb85-f839f58744cc" name="Changes" comment="" />
+    <list default="true" id="5a503176-dc0a-4ab8-bb85-f839f58744cc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../js_work/11/ex01.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../js_work/11/ex01.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/Ex01Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/member/Member$MemberBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/member/Member.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/member/MemberRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/todo/Todo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/todo/TodoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/classes/com/springWork/ex01/user/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/out/production/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/springWork/ex01/member/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/cew/ex01/member/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/springWork/ex01/member/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/cew/ex01/member/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/springWork/ex01/todo/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/cew/ex01/todo/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/springWork/ex01/todo/TodoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/cew/ex01/todo/TodoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/springWork/ex01/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_work/ex01/src/main/java/com/cew/ex01/user/UserController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +79,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/work/java_work/ex31&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/work/java_work/ex24&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;D:/work/java_work/ex24/src/main/java/org/example/Main.java&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;0d570cb2-96df-43cc-80da-7f777e6d0afe&quot;
   }
