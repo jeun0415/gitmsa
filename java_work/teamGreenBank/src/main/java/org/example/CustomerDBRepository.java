@@ -1,39 +1,108 @@
-package org.example;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class CustomerDBRepository {
+    // password 자료형 확인
 
-    // 본인 정보 조회
-    public void c_select(int u_idx) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+    // 직원 idx 검증
+    boolean clerkIdx(int num) {
+        boolean answer = false;
+        try (Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank",
+                        "root", "1234")) {
+            PreparedStatement pstmt = conn.prepareStatement("select u_idx from users where u_level = clerk");
+            ResultSet rs = pstmt.executeQuery();
+            List<Integer> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(rs.getInt("u_idx"));
+            }
+            if (list.contains(num)){
+                answer = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return answer;
+    }
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
-                    "root", "1234");
-            pstmt = conn.prepareStatement("select * from users where u_idx = ?");
+    // 아이디 수정 검증
+    boolean idCheck(String str){
+        char cha;
+        for (int i = 0; i < str.length(); i++) {
+            cha = str.charAt(i);
+            if (cha >= 0x61 && cha <= 0x7A){
+                // 영어 소문자
+            } else if (cha >= 0x41 && cha <= 0x5A) {
+                // 영어 대문자
+            } else if (cha >= 0x30 && cha <= 0x39) {
+                // 숫자
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 이름 수정 검증
+    boolean nameCheck(String str){
+        char cha;
+        for (int i = 0; i < str.length(); i++) {
+            cha = str.charAt(i);
+            if (cha >= 0x61 && cha <= 0x7A){
+                // 영어 소문자
+            } else if (cha >= 0x41 && cha <= 0x5A) {
+                // 영어 대문자
+            } else if (cha >= 44032 && cha <= 55203) {
+                // 한글
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 핸드폰 번호 수정 검증
+    boolean phoneCheck(String str){
+        char cha;
+        for (int i = 0; i < str.length(); i++) {
+            cha = str.charAt(i);
+            if (cha == 0x2D){
+                // -
+            } else if (cha >= 0x30 && cha <= 0x39) {
+                // 숫자
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    // 나의 정보 조회(마이페이지)
+    public void myPage(int u_idx) {
+
+        try(Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank",
+                        "root", "1234")) {
+
+            PreparedStatement pstmt = conn.prepareStatement("select * from users where u_idx = ?");
             pstmt.setInt(1, u_idx);
 
-            rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 System.out.println("""
-                                고유번호 = %d
-                                권한 = %s
+                                <마이페이지>
                                 아이디 = %s
                                 비밀번호 = %s
                                 이름 = %s
                                 전화번호 = %s
                                 """.formatted(
-                                rs.getInt("idx"),
-                                rs.getString("u_level"),
                                 rs.getString("u_id"),
                                 rs.getString("u_password"),
                                 rs.getString("u_name"),
@@ -43,178 +112,380 @@ public class CustomerDBRepository {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
+    // 직원 -> 고객 정보 조회
+    public void custInfo(boolean answer) {
+        Scanner scan = new Scanner(System.in);
+        if (answer == true) {
+            try(Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank",
+                        "root", "1234")) {
+
+                System.out.println("""
+                        정보를 열람할 고객의 이름을 입력하세요.
+                        """);
+                PreparedStatement pstmt1 = conn.prepareStatement("select u_name, u_id, u_idx from users where u_name = ?");
+                String name = scan.nextLine();
+                pstmt1.setString(1, name);
+                ResultSet rs = pstmt1.executeQuery();
+                while (rs.next()) {
+                    System.out.println("""
+                            이름 = %s
+                            은행고유번호 = %d
+                            아이디 = %s
+                            """.formatted(
+                            rs.getString("u_name"),
+                            rs.getInt("u_idx"),
+                            rs.getString("u_id")
+                    ));
+                }
+
+                System.out.println("""
+                        정보를 열람할 고객의 은행고유번호를 선택해주세요.
+                        """);
+                PreparedStatement pstmt2 = conn.prepareStatement("select * from users where u_idx = ?");
+                int u_idx = scan.nextInt();
+                pstmt2.setInt(1, u_idx);
+                ResultSet rs2 = pstmt2.executeQuery();
+                while (rs2.next()) {
+                    System.out.println("""
+                                    <고객 정보>
+                                    은행고유번호 = %d
+                                    권한 = %s
+                                    아이디 = %s
+                                    비밀번호 = %s
+                                    이름 = %s
+                                    전화번호 = %s
+                                    """.formatted(
+                                    rs2.getInt("u_idx"),
+                                    rs2.getString("u_level"),
+                                    rs2.getString("u_id"),
+                                    rs2.getString("u_password"),
+                                    rs2.getString("u_name"),
+                                    rs2.getString("u_phone")
+                            )
+                    );
+                }
+
+            } catch (Exception e) {
+            System.out.println("""
+                입력이 잘못되었습니다.
+                다시 입력 바랍니다.
+                """);
+            }
+        }
+        else {
+            System.out.println("""
+                        직원 확인에 실패했습니다.
+                        다시 시도해주세요.
+                        """);
+        }
+    }
+
+    // 직원 -> 고객 정보 조회2
+    public void custInfo(int num3) {
+        Scanner scan = new Scanner(System.in);
+        try(Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank",
+                        "root", "1234")) {
+
+            PreparedStatement pstmt2 = conn.prepareStatement("select * from users where u_idx = ?");
+            int u_idx = num3;
+            pstmt2.setInt(1, u_idx);
+            ResultSet rs2 = pstmt2.executeQuery();
+            while (rs2.next()) {
+                System.out.println("""
+                                <고객 정보>
+                                은행고유번호 = %d
+                                권한 = %s
+                                아이디 = %s
+                                비밀번호 = %s
+                                이름 = %s
+                                전화번호 = %s
+                                """.formatted(
+                                rs2.getInt("u_idx"),
+                                rs2.getString("u_level"),
+                                rs2.getString("u_id"),
+                                rs2.getString("u_password"),
+                                rs2.getString("u_name"),
+                                rs2.getString("u_phone")
+                        )
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("""
+                입력이 잘못되었습니다.
+                다시 입력 바랍니다.
+                """);
+        }
+    }
 
     // 본인 정보 수정
-    public void c_update(int u_idx) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+    public void myPageEdit(int u_idx) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
-                    "root", "1234");
+        try(Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank","root",
+                        "1234")){
+            Scanner scan = new Scanner(System.in);
 
-            pstmt = conn.prepareStatement("UPDATE users SET u_id = ?, u_password = ?, u_name = ?, u_phone = ? WHERE idx = ?");
+            PreparedStatement pstmt = conn.prepareStatement("select u_name from users where u_idx = ?");
+            pstmt.setInt(1,u_idx);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
 
-            pstmt.setInt(5, u_idx);
+            System.out.println("""
+                    <%s 고객님> 수정할 정보의 번호를 입력해주세요.
+                    1. 아이디
+                    2. 비밀번호
+                    3. 이름
+                    4. 핸드폰번호
+                    """.formatted(rs.getString("u_name")));
 
-            String id = JOptionPane.showInputDialog("수정할 아이디");
-            pstmt.setString(1, id);
+            switch (scan.nextInt()){
+                case 1:
+                    System.out.println("수정할 아이디를 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_id = ? WHERE u_idx = ?
+                    """);
+                    String id = scan.next();
+                    if (idCheck(id)) {
+                        if (id.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, id);
+                            pstmt.setInt(2, u_idx);
+                            break;
+                        }
+                    }
+                    else {
+                        System.out.println("""
+                                영어와 숫자만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
 
-            int pw = Integer.parseInt(JOptionPane.showInputDialog("수정할 비밀번호"));
-            pstmt.setInt(2, pw);
+                case 2:
+                    System.out.println("수정할 비밀번호를 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_password = ? WHERE u_idx = ?
+                    """);
+                    int pw = scan.nextInt();
+                    pstmt.setInt(1, pw);
+                    pstmt.setInt(2, u_idx);
+                    break;
 
-            String name = JOptionPane.showInputDialog("수정할 이름");
-            pstmt.setString(3, name);
+                case 3:
+                    System.out.println("수정할 이름을 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_name = ? WHERE u_idx = ?
+                    """);
+                    String name = scan.next();
+                    if (nameCheck(name)) {
+                        if (name.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, name);
+                            pstmt.setInt(2, u_idx);
+                            break;
+                        }
+                    }
+                    else {
+                        System.out.println("""
+                                한글과 영어만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
 
-            String pn = JOptionPane.showInputDialog("수정할 핸드폰번호(-까지 입력해주세요)");
-            pstmt.setString(4, pn);
+                case 4:
+                    System.out.println("수정할 핸드폰번호를 - 포함하여 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_phone = ? WHERE u_idx = ?
+                    """);
+                    String pn = scan.next();
+                    if (phoneCheck(pn)) {
+                        if (pn.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, pn);
+                            pstmt.setInt(2, u_idx);
+                            break;
+                        }
+                    }else {
+                        System.out.println("""
+                                숫자와 - 만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
+            }
+            pstmt.executeUpdate();
+            System.out.println("수정이 완료되었습니다.");
+            System.out.println();
 
+        } catch (Exception e) {
+            System.out.println("입력이 잘못되었습니다.");
+        }
+    }
+
+    // 직원 -> 고객 정보 수정
+    public int custInfoEdit(boolean answer) {
+        int u_idx2 = 0;
+        if (answer == true) {
+        try(Connection conn = DriverManager.getConnection
+                ("jdbc:mysql://192.168.0.53:8888/Bank","root",
+                        "1234")){
+            Scanner scan = new Scanner(System.in);
+
+            System.out.println("""
+                    정보를 수정할 고객의 이름을 입력하세요.
+                    """);
+            PreparedStatement pstmt = conn.prepareStatement("select u_name, u_id, u_idx from users where u_name = ?");
+            String name = scan.nextLine();
+            pstmt.setString(1,name);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                System.out.println("""
+                    이름 = %s
+                    은행고유번호 = %d
+                    아이디 = %s
+                    """.formatted(
+                        rs.getString("u_name"),
+                        rs.getInt("u_idx"),
+                        rs.getString("u_id")
+                ));
+            }
+
+            System.out.println("""
+                    정보를 수정할 고객의 은행고유번호를 선택해주세요.
+                    """);
+            pstmt = conn.prepareStatement("select u_name from users where u_idx = ?");
+            u_idx2 = scan.nextInt();
+            pstmt.setInt(1,u_idx2);
+            rs = pstmt.executeQuery();
+            rs.next();
+            System.out.println("""
+                    <%s 고객님> 수정할 정보의 번호를 입력해주세요.
+                    1. 아이디
+                    2. 비밀번호
+                    3. 이름
+                    4. 핸드폰번호
+                    """.formatted(rs.getString("u_name")));
+
+            int cho = scan.nextInt();
+
+            switch (cho){
+                case 1:
+                    System.out.println("수정할 아이디를 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_id = ? WHERE u_idx = ? and u_level != clerk
+                    """);
+                    String id = scan.next();
+                    if (idCheck(id)) {
+                        if (id.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, id);
+                            pstmt.setInt(2, u_idx2);
+                            break;
+                        }
+                    }else {
+                        System.out.println("""
+                                영어와 숫자만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
+
+                case 2:
+                    System.out.println("수정할 비밀번호를 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_password = ? WHERE u_idx = ? and u_level != clerk
+                    """);
+                    String pw = scan.next();
+                    if (pw.contains(" ")){
+                        System.out.println("공백이 포함되어 강제종료됩니다.");
+                        break;
+                    }
+                    else {
+                        pstmt.setString(1, pw);
+                        pstmt.setInt(2, u_idx2);
+                        break;
+                    }
+
+                case 3:
+                    System.out.println("수정할 이름을 입력해주세요.");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_name = ? WHERE u_idx = ? and u_level != clerk
+                    """);
+                    String name2 = scan.next();
+                    if (nameCheck(name2)) {
+                        if (name2.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, name2);
+                            pstmt.setInt(2, u_idx2);
+                            break;
+                        }
+                    }
+                    else {
+                        System.out.println("""
+                                한글과 영어만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
+
+                case 4:
+                    System.out.println("수정할 핸드폰번호를(-까지 입력해주세요)");
+                    pstmt = conn.prepareStatement("""
+                    UPDATE users SET u_phone = ? WHERE u_idx = ? and u_level != clerk
+                    """);
+                    String pn = scan.next();
+                    if (phoneCheck(pn)) {
+                        if (pn.contains(" ")) {
+                            System.out.println("공백이 포함되어 강제종료됩니다.");
+                            break;
+                        } else {
+                            pstmt.setString(1, pn);
+                            pstmt.setInt(2, u_idx2);
+                            break;
+                        }
+                    }else {
+                        System.out.println("""
+                                숫자와 - 만 가능합니다.
+                                종료됩니다.
+                                """);
+                        break;
+                    }
+            }
 
             pstmt.executeUpdate();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    // 본인 계좌목록 조회
-    public void a_select(int u_idx) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
-                    "root", "1234");
-            pstmt = conn.prepareStatement("select a_number from owners where = ?");
-            pstmt.setInt(1, u_idx);
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                System.out.println(
-                        """
-                                계좌번호 = %d
-                                """.formatted(
-                                rs.getInt("a_number"))
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    // 원하는 계좌 정보 조회
-    public void ah_select(int a_number) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
-                    "root", "1234");
-            pstmt = conn.prepareStatement("select u_name, h_timestamp, h_calc, h_balance from history h inner join users u on (h.u_idx == u.u_idx) where a_number = ? order by h_timestamp desc limit 5");
-            pstmt.setInt(1, a_number);
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                System.out.println(
-                        """
-                                날짜 = %s
-                                거래자명 = %s
-                                거래액 = %d
-                                잔액 = %d
-                                """.formatted(
-                                rs.getString("h_timestamp"),
-                                rs.getString("u_name"),
-                                rs.getInt("h_calc"),
-                                rs.getInt("h_balance"))
-
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    // 입출금 기능
-    public void h_insert(int a_number, int u_idx) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.53:8888/Bank",
-                    "root", "1234");
-            pstmt = conn.prepareStatement("INSERT INTO history (a_number,u_idx,h_calc,h_balance) VALUES (?,?,?,?)");
-            pstmt.setInt(1, a_number);
-            pstmt.setInt(2, u_idx);
-
-            int h_calc = Integer.parseInt(JOptionPane.showInputDialog("거래액을 넣으세요"));
-            pstmt.setInt(3, h_calc);
-
-            pstmt.setInt(4, h_balance);
-
-            pstmt.executeUpdate();
+            System.out.println("수정이 완료되었습니다.");
+            System.out.println();
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null)
-                    pstmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.out.println("""
+                    실패하였습니다.
+                    (같은 직원의 정보를 수정할 수 없습니다.)
+                    """);
         }
+        }
+        else {
+            System.out.println("""
+                        직원 확인에 실패했습니다.
+                        다시 시도해주세요.
+                        """);
+        }
+        return u_idx2;
     }
 }
