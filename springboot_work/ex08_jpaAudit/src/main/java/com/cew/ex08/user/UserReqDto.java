@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
+// 프론트 오는 파라메타의 검사
+
 @Data
 public class UserReqDto {
 
