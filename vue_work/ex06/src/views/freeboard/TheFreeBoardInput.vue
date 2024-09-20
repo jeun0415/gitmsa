@@ -2,7 +2,6 @@
   <div>
     <h1 class="h1-green">FreeBoardInput</h1>
     <div class="p-5">
-      title = {{ title }} content = {{ content }}
       <input
         type="text"
         v-model="title"
@@ -25,33 +24,57 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+// import axios from 'axios';
+// import { ref } from 'vue';
+// import { useRoute, useRouter } from 'vue-router';
 
-const title = ref('')
-const content = ref('')
+// const title = ref('');
+// const content = ref('');
 
-const router = useRouter()
+// const route = useRoute();
+// const router = useRouter();
+// const title = ref('');
+// const content = ref('');
+// const regDate = ref('');
+// const creAuthor = ref('');
+// const idx = ref(0);
 
-const save = () => {
-  const data = {
-    title: title.value,
-    content: content.value
-  }
-  // console.log(data);
-  axios
-    .post('http://localhost:8080/freeboard', data)
-    .then((res) => {
-      console.log(res)
-      alert('저장하였습니다.')
-      router.push({ name: 'freeboardlist', params:{aa:10,bb:"안녕하세요"} })
-    })
-    .catch((e) => {
-      console.log(e)
-      alert('에러' + e.response.data.message)
-    })
-}
+// const router = useRouter();
+// const route = useRoute();
+
+// const getFreeBoard = () => {
+//   axios.get(`http://localhost:8080/freeboard/view/${route.params.idx}`)
+//     .then(res => {
+//       title.value = res.data.title;
+//       content.value = res.data.content;
+//       regDate.value = res.data.regDate;
+//       creAuthor.value = res.data.creAuthor;
+//       idx.value = res.data.idx;
+//     })
+//     .catch(e => {
+//       console.log(e);
+//       alert(e.response.date.message);
+//       router.push({name:"freeboardlist"});
+//     })
+// }
+
+// const save = () => {
+//   const data = {
+//     title: title.value,
+//     content: content.value
+//   }
+//   axios
+//     .post('http://localhost:8080/freeboard', data)
+//     .then((res) => {
+//       console.log(res)
+//       alert('저장하였습니다.')
+//       router.push({ name: 'freeboardlist', params:{aa:10,bb:"안녕하세요"} })
+//     })
+//     .catch((e) => {
+//       console.log(e)
+//       alert('에러' + e.response.data.message)
+//     })
+// }
 </script>
 
 <style scoped></style>
