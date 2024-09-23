@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="h1-green">FreeBoardInput</h1>
+    <h1 class="h1-green">FreeBoardUpdate</h1>
     <div class="p-5">
       <input
         type="text"
