@@ -27,6 +27,12 @@ import { RouterLink, RouterView } from 'vue-router'
         <div>
           <RouterLink to="/fileupload">fileupload</RouterLink>
         </div>
+        <!-- <div>
+          <RouterLink to="/fileuploads">fileuploads</RouterLink>
+        </div>
+        <div>
+          <RouterLink to="/fileupload">filedownload</RouterLink>
+        </div> -->
       </nav>
     </div>
     <RouterView />

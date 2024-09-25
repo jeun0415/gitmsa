@@ -1,5 +1,6 @@
 package com.cew.ex10.freeboard;
 
+import com.cew.ex10.freeboard.file.FileEntity;
 import com.cew.ex10.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -48,4 +51,8 @@ public class FreeBoard {
     // 조회수
     @Column(columnDefinition = "int default 0")
     private int view_count;
+
+    // LAZY가 디폴트, LAZY는 2번 select, EAGER는
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "freeBoard")
+    private List<FileEntity> list = new ArrayList<>();
 }

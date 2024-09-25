@@ -28,8 +28,10 @@ const save = () => {
   }
 
   const formData = new FormData();
-  formData.append("file",myfile.value);
-  formData.append("fileDto", new Blob({"name":"filename"}, {type:"application/json"}));
+  formData.append('file',myfile.value); // 'file'이 key여야 함
+  formData.append(
+    'fileDto', 
+    new Blob([JSON.stringify({name:'filename', desc: 'aValue'})], {type:'application/json'}));
 
   axios.post('http://localhost:10000/file/upload', formData, {
     headers: {'Content-Type': 'multipart/form-data'}
