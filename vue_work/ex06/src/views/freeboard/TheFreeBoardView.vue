@@ -27,6 +27,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+
 const title = ref('초기값');
 const content = ref('초기값');
 const regDate = ref('초기값');
@@ -45,7 +46,7 @@ const dodelete = (idx) => {
   .catch(e => console.log(e));
 }
 const pageMove = () => {
-  router.push({ name: "freeboardinput", query: { idx:idx.value } });
+  router.push({ name: "freeboardupdate", query: { idx:idx.value } });
 }
 
 const getFreeBoard = () => {
