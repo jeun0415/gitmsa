@@ -18,7 +18,7 @@ export default {
   setup (props) {
     // const name = '고길동';
     // return {name}
-    console.log(props);
+    // console.log(props);
     return{}
   }
 }

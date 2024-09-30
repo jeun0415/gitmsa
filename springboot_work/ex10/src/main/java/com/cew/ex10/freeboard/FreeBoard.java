@@ -2,6 +2,7 @@ package com.cew.ex10.freeboard;
 
 import com.cew.ex10.freeboard.file.FileEntity;
 import com.cew.ex10.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -32,9 +33,6 @@ public class FreeBoard {
     private String title;
     private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
-
     @CreatedBy
     private String creAuthor;
 
@@ -53,6 +51,10 @@ public class FreeBoard {
     private int view_count;
 
     // LAZY가 디폴트, LAZY는 2번 select, EAGER는
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "freeBoard")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "freeBoard", cascade = CascadeType.ALL)
     private List<FileEntity> list = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private User user;
 }

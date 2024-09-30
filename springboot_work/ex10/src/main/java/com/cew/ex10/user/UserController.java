@@ -19,7 +19,9 @@ public class UserController {
 
     @GetMapping("select")
     public ResponseEntity<List<User>> select(){
-        return ResponseEntity.status(200).body(userRepository.findAll());
+
+        List<User> list = userRepository.findAll();
+        return ResponseEntity.status(200).body(list);
     }
 
     @PostMapping("insert")
@@ -31,11 +33,10 @@ public class UserController {
 
     @PutMapping("update")
     public ResponseEntity<String> update(@Valid @RequestBody UserReqDto userReqDto){
-        System.out.println("실행"+userReqDto);
-        ModelMapper modelMapper = new ModelMapper();
-        User user = modelMapper.map(userReqDto, User.class);
-        System.out.println("user = "+user);
-        userRepository.save(user);
+
+        System.out.println("일로오나");
+        userService.update(userReqDto);
+
         return ResponseEntity.status(200).body("success update");
     }
 

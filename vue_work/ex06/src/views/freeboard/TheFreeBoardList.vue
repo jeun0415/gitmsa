@@ -10,21 +10,32 @@
             <th class="border">author</th>
             <th class="border">regdate</th>
             <th class="border">viewcount</th>
+            <th class="border">img</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="item in arr"
-            :key="item.idx"
-            class="cursor-pointer hover:bg-slate-300"
-            @click="viewPage(item.idx)"
-          >
-            <td class="border text-center text-lg p-1">{{ item.idx }}</td>
-            <td class="border text-center text-lg p-1">{{ item.title }}</td>
-            <td class="border text-center text-lg p-1">{{ item.creAuthor }}</td>
-            <td class="border text-center text-lg p-1">{{ item.regDate }}</td>
-            <td class="border text-center text-lg p-1">{{ item.view_count }}</td>
-          </tr>
+          <template v-if="arr && arr.length > 0">
+            <tr
+              v-for="item in arr"
+              :key="item.idx"
+              class="cursor-pointer hover:bg-slate-300"
+              @click="viewPage(item.idx)"
+            >
+              <td class="border text-center text-lg p-1">{{ item.idx }}</td>
+              <td class="border text-center text-lg p-1">{{ item.title }}</td>
+              <td class="border text-center text-lg p-1">{{ item.creAuthor }}</td>
+              <td class="border text-center text-lg p-1">{{ item.regDate }}</td>
+              <td class="border text-center text-lg p-1">{{ item.view_count }}</td>
+              <template v-if="item.list[0]">
+                <td class="border text-center text-lg p-1">
+                  <img :src="`http://localhost:10000/file/download/${item.list[0].name}`" alt="" srcset="" width="150">
+                </td>
+              </template>
+              <template v-else>
+                <td class="border text-center text-lg p-1"></td>
+              </template>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -40,44 +51,57 @@
         </li>
       </ul>
     </div>
+    <div v-if="temp">
+      <h1>나올수도 있고</h1>
+    </div>
+    <div>
+      <button @click="changeTemp">나오게 하기</button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import axios from 'axios';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import axios from 'axios'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
-const arr = ref([]);
-const totalPages = ref(10);
-const pageNum = ref(0);
+// 프론트 vue angular react -> javascript, 만들어진 것은 jquery
+// null, [] 배열 빈공백 -> false
+const temp = ref(null)
+const changeTemp = () => {
+  temp.value = !temp.value
+}
+
+const router = useRouter()
+const arr = ref([])
+const totalPages = ref(10)
+const pageNum = ref(0)
 
 const setPageNum = (num) => {
   pageNum.value = num
-  getFreeBoard(num);
+  getFreeBoard(num)
 }
 
 const viewPage = (idx) => {
-  const data = {name:'freeboardview',params:{idx}};
-  router.push(data);
+  const dataa = { name: 'freeboardview', params: { idx } }
+  router.push(dataa)
 }
 
 const getFreeBoard = (pageNum) => {
-  if(pageNum==undefined) pageNum = 0;  
+  if (pageNum == undefined) pageNum = 0
   axios
     .get(`http://localhost:10000/freeboard?pageNum=${pageNum}`)
-    .then(res => {
-      arr.value = res.data.list;
-      totalPages.value = res.data.totalPages;
+    .then((ress) => {
+      arr.value = ress.data.list
+      totalPages.value = ress.data.totalPages
     })
-    .catch(e => {
-      console.log(e);
+    .catch((e) => {
+      console.log(e)
     })
 }
 
 // page 호출되자 마자 자동 실행
-getFreeBoard();
+getFreeBoard()
 </script>
 
 <style scoped></style>

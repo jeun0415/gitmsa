@@ -1,11 +1,3 @@
-hahahaha<br/>
-good good
-
-## git config --global user.email "parkmyounghoi@gmail.com"
-
-
-## git config --global user.name "dron512"
-
 win + r 
 cmd 
 명령어창실행

@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/">Home</RouterLink>
         </div>
         <div>
-          <RouterLink to="/user">User</RouterLink>
+          <RouterLink to="/Userlist">User</RouterLink>
         </div>
         <div class="group relative">
           <RouterLink to="/freeboardlist">FreeBoard</RouterLink>

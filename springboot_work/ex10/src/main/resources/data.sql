@@ -19,3 +19,5 @@ INSERT INTO free_board (idx, title, content, user_idx, cre_author, mod_author, r
 VALUES (4, 'Fourth Title', 'This is the fourth content.', 4, 'Author4', 'Modifier4', '2024-09-21 07:45:00', '2024-09-21 08:15:00', 20);
 INSERT INTO free_board (idx, title, content, user_idx, cre_author, mod_author, reg_date, mod_date, view_count)
 VALUES (5, 'Fifth Title', 'This is the fifth content.', 5, 'Author5', 'Modifier5', '2024-09-20 07:00:00', '2024-09-20 07:30:00', 50);
+
+INSERT INTO cew.free_board_file (`free_board_idx`, `idx`, `file_desc`, `name`) VALUES (1, 1, '이미지파일', 'aaa.png');

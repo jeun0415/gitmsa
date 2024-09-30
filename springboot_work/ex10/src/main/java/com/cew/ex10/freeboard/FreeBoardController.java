@@ -87,15 +87,15 @@ public class FreeBoardController {
     @GetMapping("view/{idx}")
     public ResponseEntity<FreeBoardResponseDto> findOne(@PathVariable(name = "idx") long idx){
 
+        // 해당되는 행 찾고
         FreeBoard freeBoard = freeBoardRepository.findById(idx)
                         .orElseThrow(() -> new BizException(ErrorCode.NOT_FOUND));
-
-        System.out.println(freeBoard.getList());
+        // 수정하고
+        freeBoard.setView_count(freeBoard.getView_count()+1);
+        freeBoardRepository.save(freeBoard);
 
         FreeBoardResponseDto freeBoardResponseDto = modelMapper.map(freeBoard, FreeBoardResponseDto.class);
-
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd hh:mm");
-
         freeBoardResponseDto.setRegDate(dateTimeFormatter.format(freeBoard.getRegDate()));
         freeBoardResponseDto.setModDate(dateTimeFormatter.format(freeBoard.getModDate()));
 
@@ -110,9 +110,14 @@ public class FreeBoardController {
     public ResponseEntity<FreeBoard> save(@Valid @RequestPart(name = "data") FreeBoardReqDto freeBoardReqDto,
                                           @RequestPart(name = "file", required = false)MultipartFile file){
 
-        System.out.println(freeBoardReqDto);
+        // 글 수정
+        FreeBoard freeBoard = new ModelMapper().map(freeBoardReqDto,FreeBoard.class);
+        freeBoardRepository.save(freeBoard);
+
+
         if (file != null) {
-//            System.out.println(file.getOriginalFilename());
+
+            // 파일 저장
             String myFilePath = Paths.get("images/file/").toAbsolutePath() + "\\" + file.getOriginalFilename();
             try {
                 File destFile = new File(myFilePath);
@@ -120,17 +125,14 @@ public class FreeBoardController {
             }catch (Exception e){
                 e.printStackTrace();
             }
+
+            // 파일 행 삽입
+            FileEntity fileEntity = new FileEntity();
+            fileEntity.setName(file.getOriginalFilename());
+            fileEntity.setPath(Paths.get("images/file/").toAbsolutePath().toString());
+            fileEntity.setFreeBoard(freeBoard);
+            fileRepository.save(fileEntity);
         }
-
-        FreeBoard freeBoard = new ModelMapper().map(freeBoardReqDto,FreeBoard.class);
-        freeBoardRepository.save(freeBoard);
-
-        FileEntity fileEntity = new FileEntity();
-        fileEntity.setName(file.getOriginalFilename());
-        fileEntity.setPath( Paths.get("images/file/").toAbsolutePath().toString());
-        fileEntity.setFreeBoard(freeBoard);
-
-        fileRepository.save(fileEntity);
 
         return ResponseEntity.status(200).body(freeBoard);
     }
