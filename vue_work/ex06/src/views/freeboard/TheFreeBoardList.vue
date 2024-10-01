@@ -28,7 +28,7 @@
               <td class="border text-center text-lg p-1">{{ item.view_count }}</td>
               <template v-if="item.list[0]">
                 <td class="border text-center text-lg p-1">
-                  <img :src="`http://localhost:10000/file/download/${item.list[0].name}`" alt="" srcset="" width="150">
+                  <img :src="`${GLOBAL_URL}/file/download/${item.list[0].name}`" alt="" srcset="" width="150">
                 </td>
               </template>
               <template v-else>
@@ -61,9 +61,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
+import { GLOBAL_URL } from '@/api/util';
+import { getFreeBoard } from '@/api/freeboardApi';
 
 // 프론트 vue angular react -> javascript, 만들어진 것은 jquery
 // null, [] 배열 빈공백 -> false
@@ -77,31 +78,23 @@ const arr = ref([])
 const totalPages = ref(10)
 const pageNum = ref(0)
 
-const setPageNum = (num) => {
-  pageNum.value = num
-  getFreeBoard(num)
+const setPageNum = async(num) => {
+  pageNum.value = num;
+  const res = await getFreeBoard(num);
+  arr.value = res.data.list;
+  totalPages.value = res.data.totalPages;
 }
 
 const viewPage = (idx) => {
-  const dataa = { name: 'freeboardview', params: { idx } }
-  router.push(dataa)
+  const data = { name: 'freeboardview', params: { idx } }
+  router.push(data)
 }
 
-const getFreeBoard = (pageNum) => {
-  if (pageNum == undefined) pageNum = 0
-  axios
-    .get(`http://localhost:10000/freeboard?pageNum=${pageNum}`)
-    .then((ress) => {
-      arr.value = ress.data.list
-      totalPages.value = ress.data.totalPages
-    })
-    .catch((e) => {
-      console.log(e)
-    })
-}
-
-// page 호출되자 마자 자동 실행
-getFreeBoard()
+watchEffect(async() => {
+  const res = await getFreeBoard();
+  arr.value = res.data.list;
+  totalPages.value = res.data.totalPages;
+})
 </script>
 
 <style scoped></style>

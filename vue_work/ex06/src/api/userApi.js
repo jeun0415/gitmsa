@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
+import { GLOBAL_URL } from './util';
 
-const URL = 'http://localhost:10000/user'
+const URL = `${GLOBAL_URL}/user`;
 
 // await 사용하려면 async(비동기 함수? 시간이 걸리는 상황이 있다는 것을 알려줌) 같이 적어줘야 함
 export const getUsers = async () => {

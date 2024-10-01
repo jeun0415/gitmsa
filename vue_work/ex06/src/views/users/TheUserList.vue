@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { getUsers, saveUser } from '@/api/useApi';
+import { getUsers, saveUser } from '@/api/userApi';
 import { ref, watchEffect } from 'vue';
 
 const arr = ref([]);

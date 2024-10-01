@@ -11,7 +11,7 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3306/cew
+    url: jdbc:mariadb://maria_container:3306/cew
     username: root
     password: 1234
 

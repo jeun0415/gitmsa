@@ -118,7 +118,7 @@ public class FreeBoardController {
         if (file != null) {
 
             // 파일 저장
-            String myFilePath = Paths.get("images/file/").toAbsolutePath() + "\\" + file.getOriginalFilename();
+            String myFilePath = Paths.get("images/file/").toAbsolutePath() + File.separator + file.getOriginalFilename();
             try {
                 File destFile = new File(myFilePath);
                 file.transferTo(destFile);
