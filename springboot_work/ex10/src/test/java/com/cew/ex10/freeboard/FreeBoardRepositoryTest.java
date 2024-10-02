@@ -1,11 +1,13 @@
 package com.cew.ex10.freeboard;
 
+import com.cew.ex10.freeboard.file.FileEntity;
 import com.cew.ex10.user.User;
 import com.cew.ex10.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -70,6 +72,26 @@ class FreeBoardRepositoryTest {
                 .idx(2l)
                 .title("제목")
                 .content("내용")
+                .user(user)
+                .build();
+
+        freeBoardRepository.save(freeBoard);
+    }
+
+    @Test
+    void saveFreeBoardTest(){
+        User user = userRepository.findById(1l).orElseThrow();
+
+        List<FileEntity> list = Arrays.asList(
+                FileEntity.builder().Name("afile").build(),
+                FileEntity.builder().Name("bfile").build()
+        );
+
+        FreeBoard freeBoard = FreeBoard.builder()
+                .idx(10l)
+                .title("제목qwer")
+                .content("내용qwer")
+                .list(null)
                 .user(user)
                 .build();
 

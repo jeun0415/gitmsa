@@ -7,7 +7,9 @@ import TheFreeBoardList from '../views/freeboard/TheFreeBoardList.vue';
 import TheFreeBoardView from '../views/freeboard/TheFreeBoardView.vue';
 import TheFreeBoardUpdate from '@/views/freeboard/TheFreeBoardUpdate.vue';
 
-import TheFileUpload from '@/views/TheFileUpload.vue';
+import TheFileUpload from '@/views/file/TheFileUpload.vue';
+import TheFileUploads from '@/views/file/TheFileUploads.vue';
+import TheFileDownload from '@/views/file/TheFileDownload.vue';
 
 import TheUserInsert from '@/views/users/TheUserInsert.vue';
 import TheUserUpdate from '@/views/users/TheUserUpdate.vue';
@@ -60,6 +62,16 @@ const router = createRouter({
       path: '/FileUpload',
       name: 'fileupload',
       component: TheFileUpload
+    },
+    {
+      path: '/FileUploads',
+      name: 'fileuploads',
+      component: TheFileUploads
+    },
+    {
+      path: '/FileDownload',
+      name: 'fileDownload',
+      component: TheFileDownload
     },
 
   ]

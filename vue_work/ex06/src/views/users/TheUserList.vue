@@ -5,11 +5,10 @@
     <div class="cursor-pointer bg-yellow-100 p-5 m-5 w-80 rounded">
       <h1>idx = {{ idx }}</h1>
       <h1>
-        name =
-        <input
+        name = <input
           type="text"
           v-model="name"
-          class="w-full p-1 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+          class="p-1 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
         />
       </h1>
       <h1>email = {{ email }}</h1>
@@ -51,7 +50,7 @@
 </template>
 
 <script setup>
-import { getUsers, saveUser } from '@/api/userApi';
+import { deleteUser, getUsers, saveUser } from '@/api/userApi';
 import { ref, watchEffect } from 'vue';
 
 const arr = ref([]);
@@ -62,22 +61,26 @@ const wdate = ref();
 const email = ref();
 
 const isModal = ref(false);
-const doDelete = () => {
-  console.log("doDelete");
+const doDelete = async (idx) => {
+  await deleteUser(idx);
+  const retValue = await getUsers();
+  arr.value = retValue.data;
 }
 const modalUser = async (item) => {
   isModal.value = !isModal.value;
 
   if(item == 'save'){
-    const result = await saveUser({ 
+    await saveUser({ 
         idx:idx.value, 
         name:name.value,
         email:email.value,
         password:"myPassWord"
       });
-    // update를 해야 함
 
-    alert('수정하였습니다.'+result);
+    // update를 해야 함
+    alert('수정하였습니다.');
+    const retValue = await getUsers();
+  arr.value = retValue.data;
     return;
   }
 
