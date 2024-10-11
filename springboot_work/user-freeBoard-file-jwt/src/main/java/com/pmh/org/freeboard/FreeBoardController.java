@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,20 +50,33 @@ public class FreeBoardController {
         return welcome;
     }
 
-    // 할일 Controller
+    // 할일Controller
     @GetMapping
     public ResponseEntity<FreeBoardResponsePageDto> findALl(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum
             , @RequestParam(name = "size", defaultValue = "5") int size) {
 
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        System.out.println(SecurityContextHolder.getContext());
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(userDetails);
 
-        if (email == null && email.equals("") || email.equals("anonymousUser")){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .stream().map(grantedAuthority -> grantedAuthority.toString()).toString();
+
+        System.out.println(email+" "+role);
+
+        if((email == null && email.equals("")) || email.equals("anonymousUser")){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        else {
-            System.out.println("로그인 했어요");
+        else{
+            System.out.println("로그인 했네");
         }
+
+//        if (!role.equals("ROLE_ADMIN"))
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         Sort sort = Sort.by(Sort.Direction.DESC, "idx");
         Pageable pageable = PageRequest.of(pageNum, size, sort);

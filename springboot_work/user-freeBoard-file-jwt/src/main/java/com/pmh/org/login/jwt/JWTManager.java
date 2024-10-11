@@ -13,9 +13,11 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
+
 @Component
 @RequiredArgsConstructor
 public class JWTManager {
+    // jwt 토큰 발행하고, 유효성 검사
 
     private final Environment environment;
 
@@ -54,7 +56,6 @@ public class JWTManager {
         return "success";
     }
 
-    // 비밀번호 암호화
     public Jws<Claims> getClaims(String jwt){
         String secrekey = environment.getProperty("spring.jwt.secret");
         try {
@@ -63,15 +64,13 @@ public class JWTManager {
                     = new SecretKeySpec(secrekey.getBytes(),
                     Jwts.SIG.HS256.key().build().getAlgorithm());
 
-            // 해당 비밀번호로 jwt 토큰 복호화해서 claims 가져오기
+            // 해당비밀번호로 jwt 토큰 복호화 해서 claims 가져오기
             Jws<Claims> cliams = Jwts.parser()
-                    .verifyWith(secretKey)      // jwt가 유효한지 확인
+                    .verifyWith(secretKey)
                     .build()
                     .parseSignedClaims(jwt);
 
-            // claims 안에서 email 값 가져오기
             return cliams;
-
         }catch (Exception e){
             e.printStackTrace();
             return null;
