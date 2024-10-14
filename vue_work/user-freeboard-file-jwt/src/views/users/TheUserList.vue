@@ -18,15 +18,15 @@
     <div class="flex space-x-5 justify-center">
       <button
         class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        @click="modalUser"
-      >
-        취소
-      </button>
-      <button
-        class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
         @click="modalUser('save')"
       >
         저장
+      </button>
+      <button
+        class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        @click="modalUser"
+      >
+        취소
       </button>
     </div>
   </div>
@@ -57,6 +57,7 @@
 <script setup>
 import { deleteUser, getUsers, saveUser } from '@/api/userApi.js';
 import { ref, watchEffect } from 'vue';
+import Swal from 'sweetalert2';
 
 const arr = ref([]);
 
@@ -82,7 +83,11 @@ const modalUser = async (item) => {
       email: email.value,
       password: '마이패스워드'
     });
-    alert('수정하였습니다.');
+    Swal.fire({
+      title: '알림',
+      text: '수정하였습니다.',
+      icon: 'success'
+    });
     const retValue = await getUsers();
     arr.value = retValue.data;
     return;

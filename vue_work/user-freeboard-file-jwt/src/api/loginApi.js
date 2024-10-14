@@ -29,6 +29,7 @@ export const doLoginCheck = async () => {
     const token = localStorage.getItem('token');
     try {
         const res = await axios.get(`${check}?jwt=${token}`);
+        console.log(res);
         return res;
     } catch (e) {
         console.log(e);

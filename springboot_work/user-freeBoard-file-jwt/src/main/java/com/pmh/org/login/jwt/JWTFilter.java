@@ -31,9 +31,11 @@ public class JWTFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        // axios.get(data,
         String auth = request.getHeader(HttpHeaders.AUTHORIZATION);
         // jwt 토큰이 넘어오지 않으면 로그인 처리 안함
         if(auth == null || !auth.startsWith("Bearer ")) {
+            // 헤더에 jwt 토큰 넘어오지 않으면 하고싶은거 하러 가라
             filterChain.doFilter(request, response);
             return;
         }

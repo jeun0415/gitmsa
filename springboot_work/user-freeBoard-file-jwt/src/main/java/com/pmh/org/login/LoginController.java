@@ -58,6 +58,7 @@ public class LoginController {
     public ResponseEntity<User> check(
             @RequestParam("jwt") String jwt,
             HttpServletResponse response) throws IOException {
+        System.out.println("jwt = "+jwt);
 
         // jwt가 유효한지, 유효하지 않으면 갑자기 Exception 발생
         Jws<Claims> claimsJws = jwtManager.getClaims(jwt);

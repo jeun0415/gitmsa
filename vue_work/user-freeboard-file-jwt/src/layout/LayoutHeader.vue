@@ -39,8 +39,13 @@
             </div>
           </div>
         </div>
-        <template v-if="loginCheck">
-          <div>로그인 하셨네요</div>
+        <template v-if="loginPinia.loginCheck">
+          <div class="flex space-x-5">
+            <h1>{{ loginPinia.name }} 님</h1>
+            <button @click="logout">
+              로그아웃
+            </button>
+          </div>
         </template>
         <template v-else>
           <div class="flex space-x-5">
@@ -54,23 +59,33 @@
         </template>
       </nav>
     </div>
+    <!-- {{  loginPinia.loginCheck }} -->
   </header>
 </template>
 
 <script setup>
 import { doLoginCheck } from '@/api/loginApi';
-import { watchEffect, ref } from 'vue';
+import { useLoginStore } from '@/store/loginPinia';
+import { watchEffect } from 'vue';
 import { RouterLink } from 'vue-router';
 
-const loginCheck = ref(false);
+const loginPinia = useLoginStore();
+const logout = () => {
+  localStorage.removeItem("token");
+  loginPinia.logout();
+}
 
-watchEffect(() => {
-  const result = doLoginCheck();
+watchEffect(async() => {
+  const result = await doLoginCheck();
   if(result==false){
-    loginCheck.value = false;
+    loginPinia.logout();
   }else{
-    console.log(result);
-    loginCheck.value = true;
+    if(result.status==200){
+      loginPinia.login(result.data);
+    }else if(result.status==401){
+      localStorage.removeItem("token");
+        loginPinia.logout();
+    }
   }
 });
 </script>
