@@ -42,6 +42,11 @@ public class User {
     @JsonIgnore
     private String password;
 
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+
     @Column(updatable = false)
     @CreatedDate
     private LocalDateTime wdate;
