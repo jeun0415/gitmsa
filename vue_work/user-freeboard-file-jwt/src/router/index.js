@@ -17,7 +17,7 @@ import TheLogin from '@/views/login/TheLogin.vue';
 import Therhleh from '@/views/login/Therhleh.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('/'),
   routes: [
     {
       path: '/',

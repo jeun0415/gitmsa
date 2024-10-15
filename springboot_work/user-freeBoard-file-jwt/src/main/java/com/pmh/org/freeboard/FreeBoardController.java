@@ -110,6 +110,8 @@ public class FreeBoardController {
         return ResponseEntity.ok(freeBoardResponsePageDto);
     }
 
+
+
     @GetMapping("view/{idx}")
     public ResponseEntity<FreeBoardResponseDto> findOne(@PathVariable(name = "idx") long idx) {
         // 해당되는 행 찾고...

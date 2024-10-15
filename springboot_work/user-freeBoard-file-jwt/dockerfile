@@ -17,8 +17,16 @@ WORKDIR /app
 COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
 # COPY --from=builder /build/build/libs/*-0.0.1-SNAPSHOT.jar .
 
+# 외부 포트 10000 열기
 EXPOSE 10000
 
 # root 대신 nobody 권한으로 실행
 # USER nobody
 ENTRYPOINT ["java","-jar","-Djava.security.egd=file:/dev/./urandom","-Dsun.net.inetaddr.ttl=0","app.jar"]
+
+docker run -p 10000:10000 \
+-e SPRING_DATASOURCE_URL=jdbc:mariadb://maria_container:3306/pmh?serverTimezone=Asia/Seoul \
+-e SPRING_DATASOURCE_PASSWORD=1234 \
+-d --network nginx-spring-maria \
+--name freeboard-container \
+parkmyounghoi/freeboard
