@@ -2,10 +2,12 @@ FROM gradle:jdk17 as builder
 WORKDIR /build
 
 # 그래들 파일이 변경되었을 때만 새롭게 의존패키지 다운로드 받게함.
+# jar 파일만 받고
 COPY build.gradle settings.gradle /build/
 RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
 
 # 빌더 이미지에서 애플리케이션 빌드
+# SNAPSHOT.jar 파일 생성
 COPY . /build
 RUN gradle build -x test --parallel
 
@@ -23,10 +25,3 @@ EXPOSE 10000
 # root 대신 nobody 권한으로 실행
 # USER nobody
 ENTRYPOINT ["java","-jar","-Djava.security.egd=file:/dev/./urandom","-Dsun.net.inetaddr.ttl=0","app.jar"]
-
-docker run -p 10000:10000 \
--e SPRING_DATASOURCE_URL=jdbc:mariadb://maria_container:3306/pmh?serverTimezone=Asia/Seoul \
--e SPRING_DATASOURCE_PASSWORD=1234 \
--d --network nginx-spring-maria \
---name freeboard-container \
-parkmyounghoi/freeboard
