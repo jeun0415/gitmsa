@@ -137,6 +137,7 @@ public class FreeBoardController {
         return ResponseEntity.ok(freeBoardResponseDto);
     }
 
+
     @PostMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
