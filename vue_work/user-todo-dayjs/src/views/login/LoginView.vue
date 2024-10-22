@@ -16,6 +16,7 @@ const kakaoLogin = () => {
 		// scope: 'account_email,friends,talk_calendar,talk_calendar_task',
 	});
 };
+
 const kakaoLogout = () => {
 	window.Kakao.Auth.logout();
 };

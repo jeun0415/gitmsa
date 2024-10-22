@@ -1,4 +1,4 @@
-package com.cew.org.kakao;
+package com.cew.org.kakao.dto;
 
 import lombok.Data;
 
