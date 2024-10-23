@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import MonthView from '@/views/MonthView.vue';
 import LoginView from '@/views/login/LoginView.vue';
 import OauthView from '@/views/login/OauthView.vue';
+import MessageView from '@/views/MessageView.vue';
 
 const loginRouter = [
 	{
@@ -33,6 +34,11 @@ const router = createRouter({
 			path: '/month',
 			name: 'month',
 			component: MonthView,
+		},
+		{
+			path: '/message',
+			name: 'message',
+			component: MessageView,
 		},
 		{
 			path: '/about',

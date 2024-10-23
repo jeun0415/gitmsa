@@ -35,5 +35,11 @@ spring:
       enabled: true
 
 ## jwt ?? ?? ? ???? ????
+msa:
   jwt:
     secret: abcdefghijklmnopqrstuvwxyz01234567890
+
+oauth:
+  kakao:
+    client_id: f4112a126c4633ffe4599b9f93cf66dd
+    client_secret: PuVcRd78bqSJKDtgQqVDHz96cheimpAj

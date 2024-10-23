@@ -12,6 +12,6 @@ app.use(createPinia());
 app.use(router);
 
 // 사용하려는 앱의 JS키 입력
-window.Kakao.init('1692f4090898eb1a60d5c44c13a050e5');
+window.Kakao.init('f4112a126c4633ffe4599b9f93cf66dd');
 
 app.mount('#app');

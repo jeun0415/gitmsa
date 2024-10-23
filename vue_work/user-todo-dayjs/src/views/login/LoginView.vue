@@ -18,7 +18,9 @@ const kakaoLogin = () => {
 };
 
 const kakaoLogout = () => {
-	window.Kakao.Auth.logout();
+	// window.Kakao.Auth.logout();
+	localStorage.removeItem('token');
+	alert('로그아웃 성공');
 };
 </script>
 
