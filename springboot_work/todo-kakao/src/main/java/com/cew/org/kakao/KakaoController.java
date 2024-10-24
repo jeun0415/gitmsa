@@ -23,9 +23,13 @@ public class KakaoController {
     public ResponseEntity<String> kakaoCode(@RequestParam String code){
 
         String jwt = kakaoService.getToken(code);
+        if(jwt.equals("fail"))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인에 실패하였습니다.");
+        else
+            return ResponseEntity.ok(jwt);
 //        kakaoService.messageSend();
 
-        return ResponseEntity.ok(jwt);
+
     }
 
 

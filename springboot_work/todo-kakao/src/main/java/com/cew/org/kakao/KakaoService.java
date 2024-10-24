@@ -1,5 +1,6 @@
 package com.cew.org.kakao;
 
+import com.cew.org.error.UserException;
 import com.cew.org.filter.JWTUtils;
 import com.cew.org.kakao.dto.KakaoTokenDto;
 import com.cew.org.kakao.dto.KakaoUserInfoDto;
@@ -76,28 +77,41 @@ public class KakaoService {
             KakaoUserInfoDto kakaoUserInfoDto = res.getBody();
 
             // 유저 정보 가져오기 끝
-            KakaoEntity kakaoEntity = new ModelMapper()
-                    .map(kakaoTokenDto, KakaoEntity.class);
-            kakaoEntity.setEmail(kakaoUserInfoDto.getKakaoAccount().getEmail());
-            kakaoEntity.setNickname(kakaoUserInfoDto.getKakaoAccount().getProfile().getNickname());
-            kakaoEntity.setProfile_image(kakaoUserInfoDto.getProperties().getProfileImage());
-            kakaoEntity.setThumbnail_image(kakaoUserInfoDto.getProperties().getThumbnailImage());
 
-            // userId 중복 안되게 생성
-            kakaoEntity.setUserId(UUID.randomUUID().toString());
-
-            kakaoRepository.save(kakaoEntity);
+            // 해당하는 email이 있으면
+            KakaoEntity dbkakaoEntity = kakaoRepository.findByEmail(kakaoUserInfoDto.getKakaoAccount().getEmail());
+            if (dbkakaoEntity == null) {
+                KakaoEntity kakaoEntity = new ModelMapper()
+                        .map(kakaoTokenDto, KakaoEntity.class);
+                kakaoEntity.setEmail(kakaoUserInfoDto.getKakaoAccount().getEmail());
+                kakaoEntity.setNickname(kakaoUserInfoDto.getKakaoAccount().getProfile().getNickname());
+                kakaoEntity.setProfile_image(kakaoUserInfoDto.getProperties().getProfileImage());
+                kakaoEntity.setThumbnail_image(kakaoUserInfoDto.getProperties().getThumbnailImage());
+                // userId 중복 안되게 생성
+                kakaoEntity.setUserId(UUID.randomUUID().toString());
+                kakaoRepository.save(kakaoEntity);
+            }else {
+                dbkakaoEntity.setNickname(kakaoUserInfoDto.getKakaoAccount().getProfile().getNickname());
+                dbkakaoEntity.setProfile_image(kakaoUserInfoDto.getProperties().getProfileImage());
+                dbkakaoEntity.setThumbnail_image(kakaoUserInfoDto.getProperties().getThumbnailImage());
+                dbkakaoEntity.setUserId(UUID.randomUUID().toString());
+                // 새로 발급 받은 accessToken, refreshToken 유효시간
+                dbkakaoEntity.setAccess_token(kakaoTokenDto.getAccess_token());
+                dbkakaoEntity.setRefresh_token(kakaoTokenDto.getRefresh_token());
+                dbkakaoEntity.setExpires_in(kakaoTokenDto.getExpires_in());
+                dbkakaoEntity.setRefresh_token_expires_in(kakaoTokenDto.getRefresh_token_expires_in());
+                kakaoRepository.save(dbkakaoEntity);
+            }
             // DB 저장
 
             // 우리꺼 JWT token 만들어주기
-            String jwt = jwtUtils.createJwt(kakaoEntity.getEmail());
+            String jwt = jwtUtils.createJwt(kakaoUserInfoDto.getKakaoAccount().getEmail());
             return jwt;
 
         } catch (Exception e) {
             e.printStackTrace();
+            return "fail";
         }
-
-        return "fail";
     }
 
 
@@ -114,6 +128,10 @@ public class KakaoService {
         headers2.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
         KakaoEntity kakaoEntity = kakaoRepository.findByEmail(email);
+        if (kakaoEntity == null){
+            throw new UserException("Could not find Email");
+        }
+
         headers2.add("Authorization", "Bearer " + kakaoEntity.getAccess_token());
 
         // body message

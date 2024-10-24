@@ -5,7 +5,8 @@ const url = 'http://localhost:20005';
 export const login = async (code) => {
 	try {
 		const res = await axios.get(`${url}/kakao/login?code=${code}`);
-		return res.data;
+		if (res.status.toString().startsWith('2')) localStorage.setItem('token', res.data);
+		return res;
 	} catch (err) {
 		console.error(err);
 		return err;
@@ -20,7 +21,22 @@ export const msgSend = async (message) => {
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			},
 		});
-		return res.data;
+		return res;
+	} catch (err) {
+		console.error(err);
+		return err;
+	}
+};
+
+export const loginCheck = async () => {
+	try {
+		const res = await axios.get(`${url}/user/info`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+		});
+		return res;
 	} catch (err) {
 		console.error(err);
 		return err;

@@ -21,13 +21,18 @@ import { ref } from 'vue';
 import { msgSend } from '@/api/loginApi';
 const message = ref('');
 const sendMessage = async () => {
-	console.log('Message sent:', message);
 	const token = localStorage.getItem('token');
 	if (!token) {
 		alert('로그인 하셔야 메시지를 보낼 수 있습니다.');
 		return;
 	}
-	await msgSend(message.value);
+	const res = await msgSend(message.value);
+	if (res.status.toString().startsWith('2')) {
+		alert('메시지 성공');
+		message.value = '';
+	} else {
+		alert('메시지 전송 실패');
+	}
 };
 </script>
 

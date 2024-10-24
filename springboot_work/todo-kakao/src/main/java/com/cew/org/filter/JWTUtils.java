@@ -20,8 +20,9 @@ import java.util.Date;
 public class JWTUtils {
 
 
-    @Value("${msa.jwt.secret}")
-    private String SECRET_KEY;
+//    @Value("${msa.jwt.secret}")
+    private String SECRET_KEY = "abcdefghijklmnopqrstuvwxyz01234567890";
+
 
     public String createJwt(String email){
         log.info("SECRET_KEY: {}", SECRET_KEY);
