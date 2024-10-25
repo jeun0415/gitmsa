@@ -1,11 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+// import utc from 'dayjs/plugin/utc';
+// import timezone from 'dayjs/plugin/timezone';
+import { saveTodo } from '@/api/monthApi';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+// dayjs.extend(utc);
+// dayjs.extend(timezone);
 
 const now = ref(dayjs());
 const columns = ref([]);
@@ -19,6 +20,7 @@ const content = ref('');
 const doSave = () => {
 	// 백엔드에 넘겨줘야 함
 	console.log('save', title.value, content.value, selectDate.value);
+	saveTodo(title.value, content.value, selectDate.value);
 };
 
 const subMonth = () => {
@@ -29,13 +31,13 @@ const addMonth = () => {
 };
 
 const selectDateFn = (date) => {
-	console.log('selectDateFn', dayjs(date).format('YYYY-MM-DD'));
+	console.log('dateClick', dayjs(date).format('YYYY-MM-DD'));
 	selectDate.value = dayjs(date).format('YYYY-MM-DD');
 };
 
 watch(
 	now,
-	(newValue) => {
+	(newValue, _) => {
 		// 원래 있던 값 제거
 		columns.value = [];
 		groupColumns.value = [];
@@ -80,9 +82,9 @@ watch(
 		<main class="flex justify-center">
 			<div class="max-w-lg w-full bg-white shadow-md rounded-lg p-4">
 				<h1 class="text-xl font-bold text-center mb-4">
-					<button @click="subMonth()">&lt;&lt;</button>
+					<button @click="subMonth()" class="mr-2"><i class="fas fa-arrow-left"></i></button>
 					{{ now.format('YYYY년 MM월') }}
-					<button @click="addMonth()">&gt;&gt;</button>
+					<button @click="addMonth()" class="ml-2"><i class="fas fa-arrow-right"></i></button>
 				</h1>
 				<div class="grid grid-cols-7 gap-2 text-center text-gray-600">
 					<div class="p-2 px-4 text-red-600">일</div>
@@ -140,21 +142,11 @@ watch(
 
 					<div class="mb-6">
 						<label for="due-date" class="block text-gray-700 text-sm font-bold mb-2">마감일</label>
-						<input
-							v-model="selectDate"
-							type="date"
-							id="due-date"
-							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						/>
+						<input v-model="selectDate" type="date" id="due-date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
 					</div>
 
 					<div class="flex items-center justify-center">
-						<button
-							type="submit"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-						>
-							등록하기
-						</button>
+						<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">등록하기</button>
 					</div>
 				</form>
 			</div>
