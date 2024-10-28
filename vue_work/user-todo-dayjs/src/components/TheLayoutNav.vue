@@ -72,8 +72,7 @@ watchEffect(async () => {
 	if (!localStorage.getItem('token')) return;
 	const res = await loginCheck();
 	if (res.status.toString().startsWith('2')) {
-		console.log(res.data);
-		// useStore.login(res.data);
+		// console.log(res.data);
 		// 통신 성공 했을 때 pinia 상태값 바꾸기
 		useStore.login(res.data);
 	}

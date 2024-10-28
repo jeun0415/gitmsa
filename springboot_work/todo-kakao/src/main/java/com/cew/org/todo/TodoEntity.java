@@ -1,6 +1,7 @@
 package com.cew.org.todo;
 
 import com.cew.org.kakao.jpa.KakaoEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -30,5 +31,6 @@ public class TodoEntity {
     @Schema(hidden = true)
     @ManyToOne
     @JoinColumn(name = "kakao_id")
+    @JsonIgnore
     private KakaoEntity kakaoEntity;
 }

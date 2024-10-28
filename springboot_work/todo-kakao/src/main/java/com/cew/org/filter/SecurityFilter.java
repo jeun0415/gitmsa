@@ -42,6 +42,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         // securityContextHolder 만듦
         String jwt = authorization.split("Bearer ")[1];
         String email = jwtUtils.getEmailFromJwt(jwt);
+        String role = jwtUtils.getRoleFromJwt(jwt);
 
         if (email == null){
             throw new UserException("user email not found");
@@ -53,7 +54,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 User.builder()
                         .username(email)
                         .password("temp")
-                        .roles("ADMIN")
+                        .roles(role)
                         .build(),
                 null
         );

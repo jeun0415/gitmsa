@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
 
 // nav 위치 설정
 import TheLayoutNav from './components/TheLayoutNav.vue';
@@ -8,7 +8,7 @@ import TheLayoutNav from './components/TheLayoutNav.vue';
 <template>
 	<TheLayoutNav />
 
-	<RouterView class="pt-16" />
+	<RouterView />
 </template>
 
 <style scoped></style>

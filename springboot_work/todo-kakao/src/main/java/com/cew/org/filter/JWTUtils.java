@@ -28,7 +28,7 @@ public class JWTUtils {
         log.info("SECRET_KEY: {}", SECRET_KEY);
         String jwt = Jwts.builder()
                 .claim("email",email)
-                .claim("role","ROLE_ADMIN")
+                .claim("role","USER")
                 .issuedAt(new Date(System.currentTimeMillis())) // 현재 시간 넣기
                 .expiration(new Date(System.currentTimeMillis() + 1000)) // 1초 지나면 유효시간 없음...
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1초*60*60*24 1일 유효함
@@ -49,5 +49,18 @@ public class JWTUtils {
                 .parseSignedClaims(jwt);
 
         return cliams.getPayload().get("email").toString();
+    }
+
+
+    public String getRoleFromJwt(String jwt){
+        SecretKey secretKey
+                = new SecretKeySpec(SECRET_KEY.getBytes(),
+                Jwts.SIG.HS256.key().build().getAlgorithm());
+        Jws<Claims> cliams = Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(jwt);
+
+        return cliams.getPayload().get("role").toString();
     }
 }
