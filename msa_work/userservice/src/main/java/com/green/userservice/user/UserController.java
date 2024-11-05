@@ -1,6 +1,7 @@
 package com.green.userservice.user;
 
 import com.green.userservice.user.service.UserService;
+import com.green.userservice.user.vo.LoginResponse;
 import com.green.userservice.user.vo.UserRequest;
 import com.green.userservice.user.vo.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,18 @@ public class UserController {
     public ResponseEntity<UserResponse> joinUser(@RequestBody UserRequest userRequest){
 
         UserResponse userResponse = userService.join(userRequest);
+        System.out.println(userResponse);
         return ResponseEntity.ok(userResponse);
     }
 
 
     @GetMapping("login")
-    public ResponseEntity<String> getUser(){
+    public ResponseEntity<LoginResponse> getUser(@RequestParam(value = "email") String email,
+                                          @RequestParam(value = "password") String password){
 
-        return ResponseEntity.ok(null);
+        LoginResponse loginResponse = userService.login(email, password);
+
+        return ResponseEntity.ok(loginResponse);
     }
 
 
