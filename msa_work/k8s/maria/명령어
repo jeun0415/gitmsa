@@ -1,0 +1,7 @@
+
+#현재 폴더에 있는 yaml 적용해라
+kubectl apply -f .
+
+kubectl apply -f maria-secret.yaml
+kubectl apply -f maria-configmap.yaml
+kubectl apply -f maria.yaml
