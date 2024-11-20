@@ -5,3 +5,6 @@ kubectl apply -f .
 kubectl apply -f maria-secret.yaml
 kubectl apply -f maria-configmap.yaml
 kubectl apply -f maria.yaml
+
+# 접속 테스트 명령어
+for i in {1..10}; do curl localhost:40001/first-service/test; done
