@@ -9,8 +9,11 @@ import com.green.userservice.user.vo.UserRequest;
 import com.green.userservice.user.vo.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -53,5 +56,14 @@ public class UserServiceImpl implements UserService{
         loginResponse.setEmail(userEntity.getEmail());
 
         return loginResponse;
+    }
+
+    public List<UserResponse> list(){
+        List<UserEntity> list = userRepository.findAll();
+        List<UserResponse> userResponses = new ArrayList<>();
+        list.forEach(
+                userEntity -> userResponses.add(new ModelMapper().map(userEntity, UserResponse.class))
+        );
+        return userResponses;
     }
 }
