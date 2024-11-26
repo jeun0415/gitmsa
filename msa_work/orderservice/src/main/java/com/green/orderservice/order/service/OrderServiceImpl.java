@@ -1,7 +1,5 @@
 package com.green.orderservice.order.service;
 
-import com.green.orderservice.error.OrderException;
-import com.green.userservice.jwt.JwtUtils;
 import com.green.orderservice.order.jpa.OrderEntity;
 import com.green.orderservice.order.jpa.OrderRepository;
 import com.green.orderservice.order.vo.OrderRequest;
@@ -10,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -17,39 +17,32 @@ import java.util.UUID;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final JwtUtils jwtUtils;
+
 
     @Override
-    public OrderResponse join(OrderRequest orderRequest) {
+    public OrderResponse order(OrderRequest orderRequest, String userId) {
 
-        String reqEmail = orderRequest.getEmail();
-        orderRepository.findByEmail(reqEmail)
-                .ifPresent(user -> {
-                    throw new OrderException(String.format("이미 존재하는 이메일입니다. \n 회원가입 할 수 없습니다. %s", reqEmail));});
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setProductId(orderRequest.getProductId());
+        orderEntity.setQty(orderRequest.getQty());
+        orderEntity.setUnitPrice(orderRequest.getQty());
+        //주문번호 생성
+        orderEntity.setOrderId(UUID.randomUUID().toString());
+        orderEntity.setUserId(userId);
+        orderEntity.setTotalPrice(orderRequest.getUnitPrice()*orderRequest.getQty());
+        OrderEntity dbOrderEntity = orderRepository.save(orderEntity);
 
-        ModelMapper mapper = new ModelMapper();
-        OrderEntity orderEntity = mapper.map(orderRequest, OrderEntity.class);
-        orderEntity.setUserId(UUID.randomUUID().toString());
-        orderEntity = orderRepository.save(orderEntity);
-
-        OrderResponse orderResponse = mapper.map(orderEntity, OrderResponse.class);
-
-        return orderResponse;
+        return new ModelMapper().map(dbOrderEntity, OrderResponse.class);
     }
 
     @Override
-    public OrderResponse login(String email, String password) {
+    public List<OrderResponse> list(String userId) {
+        List<OrderEntity> orderEntities = orderRepository.findAllByUserId(userId);
 
-        OrderEntity orderEntity =
-                orderRepository.findByEmailAndPassword(email, password)
-                        .orElseThrow(() -> new OrderException("Invalid email or password"));
+        List<OrderResponse> orderResponses = new ArrayList<OrderResponse>();
+        orderEntities.stream().forEach(orderEntity ->
+                orderResponses.add(new ModelMapper().map(orderEntity, OrderResponse.class)));
 
-        OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setUserId(orderEntity.getUserId());
-        orderResponse.setAccessToken(jwtUtils.createAccessToken(orderEntity.getEmail(), orderEntity.getUserId()));
-        orderResponse.setRefreshToken(jwtUtils.createRefreshToken(orderEntity.getEmail()));
-        orderResponse.setEmail(orderEntity.getEmail());
-
-        return orderResponse;
+        return orderResponses;
     }
 }
