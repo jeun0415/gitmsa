@@ -33,6 +33,13 @@ dependencies {
 	implementation 'io.micrometer:micrometer-core' // 메트릭 생성 라이브러리
 	implementation 'io.micrometer:micrometer-registry-prometheus' // 프로메테우스에서 메트릭 자동으로 가져감
 
+	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+	implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
+	implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+	implementation 'io.micrometer:micrometer-observation'
+
+	implementation 'io.github.openfeign:feign-micrometer'
+
 	// eureka client 이거 있어야 eureka 서버에 등록됨
 //	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 

@@ -14,4 +14,6 @@ public interface UserService {
     LoginResponse login(String email, String password);
 
     public List<UserResponse> list();
+
+    UserResponse getUser(String userId);
 }

@@ -78,6 +78,13 @@ public class UserController {
     }
 
 
+    @GetMapping("getUser/{userId}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable(value = "userId") String userId){
+        UserResponse userResponse = userService.getUser(userId);
+        return ResponseEntity.ok(userResponse);
+    }
+
+
     @GetMapping("kakaologin")
     public ResponseEntity<String> kakaoLogin(){
 
