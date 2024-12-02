@@ -23,7 +23,11 @@ public class KafkaConsumer {
     public void consumerMessage(String message){
         log.info("Received message: {}", message);
 
-        Map<Object, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
+
+        // orderid, 1
+        // qty , 10
+
         ObjectMapper mapper = new ObjectMapper();
 
         try{
