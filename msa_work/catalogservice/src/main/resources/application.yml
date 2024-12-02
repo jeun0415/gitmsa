@@ -1,3 +1,52 @@
 server:
-  port: 10000
+  port: 20002
 
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://192.168.0.113:30308/msa?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+  output:
+    ansi:
+      enabled: always
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate.format_sql: false
+    show-sql: true
+    open-in-view: false
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic-name: ex01
+
+logging:
+  level:
+    org.springframework.web: DEBUG    # HTTP 요청 관련 로그 (Actuator HTTP 엔드포인트) 이거 해야 다 나옴...
+  # 콘솔에 로그 출력
+  pattern:
+    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    # 파일에 로그 출력
+#  pattern:
+#    file: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"  # 파일 로그 패턴
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0 # 모든 요청을 추적 (0.1로 설정하면 10%만 추적)
+    zipkin:
+      enabled: true
+      endpoint: http://192.168.0.113:9411/api/v2/spans
+
+first-service-url: http://localhost:40001
+catalog-service-url: http://localhost:20002
