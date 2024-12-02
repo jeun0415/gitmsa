@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: order-service
+    name: catalog-service
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -16,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate.format_sql: false
     show-sql: true
