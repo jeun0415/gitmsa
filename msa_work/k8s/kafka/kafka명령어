@@ -22,3 +22,8 @@ kafka-console-consumer --topic topic1 --bootstrap-server 192.168.0.113:9092 --fr
 
 # 프로듀서 실행하기
 kafka-console-producer --topic topic1 --bootstrap-server 192.168.0.113:9092
+
+
+docker cp mariadb-java-client-3.5.1.jar kafka-connect:/usr/share/java/kafka/
+docker cp mysql-connector-j-8.3.0.jar kafka-connect:/usr/share/java/kafka/
+docker cp kafka-connect-jdbc-10.8.0.jar kafka-connect:/usr/share/java/kafka/

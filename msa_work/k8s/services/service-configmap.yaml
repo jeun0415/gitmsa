@@ -22,4 +22,4 @@ data:
   spring-datasource-url-catalog: "jdbc:mariadb://mariadb-catalog:3306/msa"
   spring-datasource-username: "root"
 
-  spring-kafka-bootstrap-servers: "192.168.65.3.:9094"
+  spring-kafka-bootstrap-servers: "192.168.65.3:9094"
