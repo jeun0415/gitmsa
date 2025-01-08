@@ -1,0 +1,26 @@
+1. CREATE TABLE 'users'(
+	'userid' INT AUTO_INCREMENT PRIMARY KEY,
+  	`username` VARCHAR(30) NOT NULL,
+  	`authflg` CHAR(1) NULL DEFAULT '0',
+  	`birthday` DATE NOT NULL,
+  	`createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+2. INSERT INTO users (username, authflg, birthday) VALUES ('그린', '0', 2024-01-26);
+
+3. UPDATE users SET username = '테스터', authflg = '1', birthday = '2007-03-01' WHERE username = '그린';
+
+4. DELETE FROM users WHERE username = '테스터';
+
+5. ALTER TABLE users ADD COLUMN addr VARCHAR(100) NOT NULL DEFAULT '-';
+
+6. DROP TABLE users;
+
+7. FOREIGN KEY (userid) REFERENCES users(userid)
+
+8. INSERT INTO users (username, birthday) VALUES ('그린', '2024-12-30');
+   INSERT INTO rankmanagement (userid, rankname) VALUES (1, '학원');
+
+9. SELECT u.username, u.birthday, r.rankname FROM users u INNER JOIN rankmanagement r ON u.userid = r.userid;
+
+10. DROP TABLE rankmanagement; DROP TABLE users;
